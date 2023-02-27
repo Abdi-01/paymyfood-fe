@@ -1,25 +1,27 @@
 import React from "react";
 import {
-    Box,
-    Flex,
-    Text,
-    useDisclosure,
+    Card,
+    CardBody,
+    CardFooter,
     Drawer,
     DrawerHeader,
     DrawerBody,
     DrawerContent,
     DrawerOverlay,
+    Image,
+    Stack,
+    Heading,
+    Flex,
+    Text,
     Button,
-    Input,
-    InputGroup,
-    InputRightElement,
+    Box,
+    useDisclosure,
 } from "@chakra-ui/react";
-
-import { HiMenu, HiSearch, HiFilter, } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { HiMenu } from "react-icons/hi";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-function Navbar(props) {
+function AccountCard(props) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [placement] = React.useState("left");
     const dataUsername = useSelector(
@@ -39,49 +41,41 @@ function Navbar(props) {
                     justifyItems={"self-start"}
                     onClick={onOpen}
                     mr={"16"}
-                >
+                >   
                     <HiMenu color="#EEEEEE" />
                 </Button>
             </Box>
             <Box>
-                <InputGroup>
-                    <Input
-                        type="text"
-                        placeholder={"Search for a product..."}
-                        color={"#EEEEEE"}
-                        bgColor={"#393E46"}
-                        variant={"link"}
-                        justifyItems={"self-end"}
-                        h={"10"}
-                        w={"lg"}
+                <Card
+                    direction={{ base: "column", sm: "row" }}
+                    overflow="hidden"
+                    variant="outline"
+                >
+                    <Image
+                        objectFit="cover"
+                        maxW={{ base: "100%", sm: "200px" }}
+                        src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                        alt="Caffe Latte"
                     />
-                    <InputRightElement>
-                        <Button
-                            display={"flex"}
-                            alignSelf={"center"}
-                            size={"md"}
-                            bgColor={"transparent"}
-                            variant={"link"}
-                            py={"2.5"}
-                        >
-                            <HiSearch color="#00ADB5" />
-                        </Button>
-                    </InputRightElement>
-                </InputGroup>
+
+                    <Stack>
+                        <CardBody>
+                            <Heading size="md">The perfect latte</Heading>
+
+                            <Text py="2">
+                                Caffè latte is a coffee beverage of Italian
+                                origin made with espresso and steamed milk.
+                            </Text>
+                        </CardBody>
+
+                        <CardFooter>
+                            <Button variant="solid" colorScheme="blue">
+                                Buy Latte
+                            </Button>
+                        </CardFooter>
+                    </Stack>
+                </Card>
             </Box>
-            <Button
-                rounded={"md"}
-                h={"10"}
-                bgColor="#00ADB5"
-                color="#EEEEEE"
-                _hover={""}
-                p={"2.5"}
-                variant={"link"}
-                // onClick={}
-                ml={"4"}
-            >
-                <HiFilter color="#EEEEEE" />
-            </Button>
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>
@@ -162,4 +156,4 @@ function Navbar(props) {
     );
 }
 
-export default Navbar;
+export default AccountCard;
