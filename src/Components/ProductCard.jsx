@@ -7,38 +7,33 @@ import {
     Stack,
     Heading,
     Text,
-    Divider,
     CardFooter,
     Button,
-    ButtonGroup,
 } from "@chakra-ui/react";
 
 function ProductCard() {
     return (
-        <Card maxW="sm">
+        <Card maxW="sm" bgColor={"#393E46"}>
             <CardBody>
                 <Image
-                    src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                    alt="Green double couch with wooden legs"
+                    src="https://images.unsplash.com/photo-1612874742237-6526221588e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3BhZ2hldHRpJTIwY2FyYm9uYXJhfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                    alt="Spaghetti Carbonara"
                     borderRadius="lg"
+                    maxH={"32"}
                 />
-                <Stack mt="6" spacing="3">
-                    <Heading size="md">Spaghetti Carbonara</Heading>
-                    <Text color="blue.600" fontSize="2xl">
-                        $450
+                <Stack mt="3" spacing="1">
+                    <Heading size="md" color={"#EEEEEE"}>
+                        Spaghetti Carbonara
+                    </Heading>
+                    <Text color="#00ADB5" fontSize="2xl" fontWeight="bold" textAlign={"center"}>
+                        $15
                     </Text>
                 </Stack>
             </CardBody>
-            <Divider />
-            <CardFooter>
-                <ButtonGroup spacing="2">
-                    <Button variant="solid" colorScheme="blue">
-                        Buy now
-                    </Button>
-                    <Button variant="ghost" colorScheme="blue">
-                        Add to cart
-                    </Button>
-                </ButtonGroup>
+            <CardFooter display={"flex"} justify={"center"} mt="-8">
+                <Button bgColor={"#00ADB5"} color={"#EEEEEE"} _hover={""}>
+                    Add to cart
+                </Button>
             </CardFooter>
         </Card>
     );

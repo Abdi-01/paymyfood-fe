@@ -36,10 +36,11 @@ function Login(props) {
                     email: email,
                     password: password,
                 });
-                console.log("Ini res.data dari LOGIN", res.data[0]);
+                console.log("Ini res.data dari LOGIN", res.data);
 
                 alert("Login Successfull");
-                dispatch(loginAction(res.data[0]));
+                localStorage.setItem("pmf_login", res.data.token);
+                dispatch(loginAction(res.data));
                 navigate("/landing");
             }
         } catch (error) {

@@ -14,7 +14,7 @@ function Landing(props) {
                     <Navbar />
                 </Box>
                 {/* Tab Options */}
-                <Box mt={"4"}>
+                <Box mt={"4"} ml={"4"}>
                     <TabOption />
                 </Box>
             </Box>
