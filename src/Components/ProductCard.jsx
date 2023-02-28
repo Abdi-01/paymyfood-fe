@@ -11,7 +11,7 @@ import {
     Button,
 } from "@chakra-ui/react";
 
-function ProductCard() {
+function ProductCard(props) {
     return (
         <Card maxW="sm" bgColor={"#393E46"}>
             <CardBody>
@@ -23,10 +23,10 @@ function ProductCard() {
                 />
                 <Stack mt="3" spacing="1">
                     <Heading size="md" color={"#EEEEEE"}>
-                        Spaghetti Carbonara
+                        {props.produk}
                     </Heading>
                     <Text color="#00ADB5" fontSize="2xl" fontWeight="bold" textAlign={"center"}>
-                        $15
+                        {props.price}
                     </Text>
                 </Stack>
             </CardBody>

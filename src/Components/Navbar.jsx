@@ -13,6 +13,11 @@ import {
     Input,
     InputGroup,
     InputRightElement,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuOptionGroup,
+    MenuItemOption
 } from "@chakra-ui/react";
 
 import { HiMenu, HiSearch, HiFilter, } from "react-icons/hi";
@@ -27,6 +32,8 @@ function Navbar(props) {
     );
     return (
         <Flex bgColor={"#222831"} mt={"4"} ml={"4"}>
+
+            {/* BUTTON DRAWER */}
             <Box>
                 <Button
                     rounded={"md"}
@@ -43,6 +50,8 @@ function Navbar(props) {
                     <HiMenu color="#EEEEEE" />
                 </Button>
             </Box>
+
+            {/* SEARCH BAR */}
             <Box>
                 <InputGroup>
                     <Input
@@ -69,7 +78,9 @@ function Navbar(props) {
                     </InputRightElement>
                 </InputGroup>
             </Box>
-            <Button
+
+            {/* BUTTON FILTER */}
+            {/* <Button
                 rounded={"md"}
                 h={"10"}
                 bgColor="#00ADB5"
@@ -81,7 +92,40 @@ function Navbar(props) {
                 ml={"4"}
             >
                 <HiFilter color="#EEEEEE" />
-            </Button>
+            </Button> */}
+
+            {/* SORT BUTTON */}
+            <Menu closeOnSelect={false}>
+                <MenuButton
+                    as={Button}
+                    rounded={"md"}
+                    h={"10"}
+                    bgColor="#00ADB5"
+                    color="#EEEEEE"
+                    _hover={""}
+                    p={"2.5"}
+                    variant={"link"}
+                    ml={"4"}
+                >
+                    <HiFilter color="#EEEEEE" />
+                </MenuButton>
+                <MenuList minWidth="240px">
+                    <MenuOptionGroup
+                        defaultValue="asc"
+                        title="Order"
+                        type="radio"
+                    >
+                        <MenuItemOption value="asc">
+                            Ascending (A - Z)
+                        </MenuItemOption>
+                        <MenuItemOption value="desc">
+                            Descending (Z - A)
+                        </MenuItemOption>
+                    </MenuOptionGroup>
+                </MenuList>
+            </Menu>
+
+            {/* DRAWER */}
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>
@@ -93,67 +137,71 @@ function Navbar(props) {
                         Welcome, {dataUsername}
                     </DrawerHeader>
                     <DrawerBody>
-                        <Box display={"block"}>
-                            <Link to={"/landing"}>
-                                <Text my={"4"}>
-                                    <Button
-                                        bgColor={"#00adb5"}
-                                        _hover="none"
-                                        w={"full"}
-                                        color={"#222831"}
-                                    >
-                                        Home
-                                    </Button>
-                                </Text>
-                            </Link>
-                            <Link to={"/products"}>
-                                <Text my={"4"}>
-                                    <Button
-                                        bgColor={"#00adb5"}
-                                        _hover="none"
-                                        w={"full"}
-                                        color={"#222831"}
-                                    >
-                                        Manage Products
-                                    </Button>
-                                </Text>
-                            </Link>
-                            <Link to={"/accounts"}>
-                                <Text my={"4"}>
-                                    <Button
-                                        bgColor={"#00adb5"}
-                                        _hover="none"
-                                        w={"full"}
-                                        color={"#222831"}
-                                    >
-                                        Manage Accounts
-                                    </Button>
-                                </Text>
-                            </Link>
-                            <Link to={"/products"}>
-                                <Text my={"4"}>
-                                    <Button
-                                        bgColor={"#00adb5"}
-                                        _hover="none"
-                                        w={"full"}
-                                        color={"#222831"}
-                                    >
-                                        Statistics
-                                    </Button>
-                                </Text>
-                            </Link>
-                            <Link to={"/"}>
-                                <Text my={"4"}>
-                                    <Button
-                                        bgColor={"#00adb5"}
-                                        _hover="none"
-                                        w={"full"}
-                                        color={"#222831"}
-                                    >
-                                        Logout
-                                    </Button>
-                                </Text>
-                            </Link>
+                        <Box display={"flex"} flexDir='column' justifyContent={'space-between'} h='90vh'>
+                            <Box>
+                                <Link to={"/landing"}>
+                                    <Text my={"4"}>
+                                        <Button
+                                            bgColor={"#00adb5"}
+                                            _hover="none"
+                                            w={"full"}
+                                            color={"#222831"}
+                                        >
+                                            Home
+                                        </Button>
+                                    </Text>
+                                </Link>
+                                <Link to={"/products"}>
+                                    <Text my={"4"}>
+                                        <Button
+                                            bgColor={"#00adb5"}
+                                            _hover="none"
+                                            w={"full"}
+                                            color={"#222831"}
+                                        >
+                                            Manage Products
+                                        </Button>
+                                    </Text>
+                                </Link>
+                                <Link to={"/accounts"}>
+                                    <Text my={"4"}>
+                                        <Button
+                                            bgColor={"#00adb5"}
+                                            _hover="none"
+                                            w={"full"}
+                                            color={"#222831"}
+                                        >
+                                            Manage Accounts
+                                        </Button>
+                                    </Text>
+                                </Link>
+                                <Link to={"/products"}>
+                                    <Text my={"4"}>
+                                        <Button
+                                            bgColor={"#00adb5"}
+                                            _hover="none"
+                                            w={"full"}
+                                            color={"#222831"}
+                                        >
+                                            Statistics
+                                        </Button>
+                                    </Text>
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link to={"/"}>
+                                    <Text my={"4"}>
+                                        <Button
+                                            bgColor={"#00adb5"}
+                                            _hover="none"
+                                            w={"full"}
+                                            color={"#222831"}
+                                        >
+                                            Logout
+                                        </Button>
+                                    </Text>
+                                </Link>
+                            </Box>
                         </Box>
                     </DrawerBody>
                 </DrawerContent>

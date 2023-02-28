@@ -30,9 +30,6 @@ function TabOption() {
                     gap={"2"}
                 >
                     <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
                 </TabPanel>
                 <TabPanel
                     display={"flex"}

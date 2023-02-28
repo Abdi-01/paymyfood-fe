@@ -38,7 +38,7 @@ function App(props) {
             <Routes>
                 <Route path="/" element={<Login />}></Route>
                 <Route path="/landing" element={<Landing />}></Route>
-                <Route path="/products" element={<AddProduct />}></Route>
+                <Route path="/products" element={<AddProduct keepLogin={keepLogin}/>}></Route>
                 <Route path="/accounts" element={<Accounts />}></Route>
             </Routes>
         </Box>

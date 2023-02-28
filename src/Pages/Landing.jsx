@@ -5,8 +5,7 @@ import { Flex, Box, Text, Container } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
 function Landing(props) {
-    const data = useSelector((state) => state.authReducer.data.username);
-    console.log("Data", data);
+    
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
             <Box flex={"3"}>
