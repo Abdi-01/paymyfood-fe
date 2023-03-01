@@ -30,6 +30,11 @@ function Navbar(props) {
     const dataUsername = useSelector(
         (state) => state.authReducer.data.username
     );
+
+    const dataRoleId = useSelector((state) => state.authReducer.data.roleId);
+    console.log("role id reducer : ", dataRoleId);
+
+
     return (
         <Flex bgColor={"#222831"} mt={"4"} ml={"4"}>
 
@@ -139,66 +144,87 @@ function Navbar(props) {
                     <DrawerBody>
                         <Box display={"flex"} flexDir='column' justifyContent={'space-between'} h='90vh'>
                             <Box>
-                                <Link to={"/landing"}>
-                                    <Text my={"4"}>
-                                        <Button
-                                            bgColor={"#00adb5"}
-                                            _hover="none"
-                                            w={"full"}
-                                            color={"#222831"}
-                                        >
-                                            Home
-                                        </Button>
-                                    </Text>
-                                </Link>
-                                <Link to={"/products"}>
-                                    <Text my={"4"}>
-                                        <Button
-                                            bgColor={"#00adb5"}
-                                            _hover="none"
-                                            w={"full"}
-                                            color={"#222831"}
-                                        >
-                                            Manage Products
-                                        </Button>
-                                    </Text>
-                                </Link>
-                                <Link to={"/category"}>
-                                    <Text my={"4"}>
-                                        <Button
-                                            bgColor={"#00adb5"}
-                                            _hover="none"
-                                            w={"full"}
-                                            color={"#222831"}
-                                        >
-                                            Manage Category
-                                        </Button>
-                                    </Text>
-                                </Link>
-                                <Link to={"/accounts"}>
-                                    <Text my={"4"}>
-                                        <Button
-                                            bgColor={"#00adb5"}
-                                            _hover="none"
-                                            w={"full"}
-                                            color={"#222831"}
-                                        >
-                                            Manage Accounts
-                                        </Button>
-                                    </Text>
-                                </Link>
-                                <Link to={"/products"}>
-                                    <Text my={"4"}>
-                                        <Button
-                                            bgColor={"#00adb5"}
-                                            _hover="none"
-                                            w={"full"}
-                                            color={"#222831"}
-                                        >
-                                            Statistics
-                                        </Button>
-                                    </Text>
-                                </Link>
+
+                                {dataRoleId == 1 ?
+                                    <>
+                                        <Link to={"/landing"}>
+                                            <Text my={"4"}>
+                                                <Button
+                                                    bgColor={"#00adb5"}
+                                                    _hover="none"
+                                                    w={"full"}
+                                                    color={"#222831"}
+                                                >
+                                                    Home
+                                                </Button>
+                                            </Text>
+                                        </Link>
+                                        <Link to={"/products"}>
+                                            <Text my={"4"}>
+                                                <Button
+                                                    bgColor={"#00adb5"}
+                                                    _hover="none"
+                                                    w={"full"}
+                                                    color={"#222831"}
+                                                >
+                                                    Manage Products
+                                                </Button>
+                                            </Text>
+                                        </Link>
+                                        <Link to={"/category"}>
+                                            <Text my={"4"}>
+                                                <Button
+                                                    bgColor={"#00adb5"}
+                                                    _hover="none"
+                                                    w={"full"}
+                                                    color={"#222831"}
+                                                >
+                                                    Manage Category
+                                                </Button>
+                                            </Text>
+                                        </Link>
+                                        <Link to={"/accounts"}>
+                                            <Text my={"4"}>
+                                                <Button
+                                                    bgColor={"#00adb5"}
+                                                    _hover="none"
+                                                    w={"full"}
+                                                    color={"#222831"}
+                                                >
+                                                    Manage Accounts
+                                                </Button>
+                                            </Text>
+                                        </Link>
+                                        <Link to={"/products"}>
+                                            <Text my={"4"}>
+                                                <Button
+                                                    bgColor={"#00adb5"}
+                                                    _hover="none"
+                                                    w={"full"}
+                                                    color={"#222831"}
+                                                >
+                                                    Statistics
+                                                </Button>
+                                            </Text>
+                                        </Link>
+                                    </>
+
+                                    :
+
+                                    <Link to={"/landing"}>
+                                        <Text my={"4"}>
+                                            <Button
+                                                bgColor={"#00adb5"}
+                                                _hover="none"
+                                                w={"full"}
+                                                color={"#222831"}
+                                            >
+                                                Home
+                                            </Button>
+                                        </Text>
+                                    </Link>
+
+                                }
                             </Box>
                             <Box>
                                 <Link to={"/"}>
