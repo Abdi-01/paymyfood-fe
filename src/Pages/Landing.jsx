@@ -19,11 +19,11 @@ function Landing(props) {
             </Box>
             <Box
                 display={"flex"}
+                bgColor={"#EEEEEE"}
                 flexDir={"column"}
                 justifyContent={"space-between"}
                 alignItems={"center"}
-                h="100%"
-                bgColor={"#EEEEEE"}
+                
             >
                 <Box>
                     <Text

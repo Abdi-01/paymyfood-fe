@@ -209,7 +209,7 @@ function ProductTable(props) {
                                                     : ""
                                             }
                                             w="full"
-                                            pb={"4"}
+                                            
                                         ></Image>
                                         <Button
                                             bgColor="#00ADB5"
