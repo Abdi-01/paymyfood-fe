@@ -1,39 +1,11 @@
-import React, { useRef, useState } from 'react'
-import AccountCard from '../Components/AccountCard'
 import {
-  Flex,
-  Box,
-  Container,
-  Input,
-  FormControl,
-  Modal,
-  ModalOverlay,
-  FormLabel,
-  ModalFooter,
-  ModalCloseButton,
-  ModalHeader,
-  ModalContent,
-  ModalBody,
-  Button,
-  useDisclosure,
-  Text,
-  Select,
-  useToast,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer
+  Box, Button, Container, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Table, TableContainer, Text, Th, Thead, Tr, useDisclosure, useToast
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import Navbar from "../Components/Navbar";
-import TabOption from "../Components/TabOption";
-import UserTable from '../Components/UserTable';
-import { IoMdAddCircle } from 'react-icons/io';
-import { HiDocumentAdd } from 'react-icons/hi';
 import axios from 'axios';
+import React, { useRef, useState } from 'react';
+import { IoMdAddCircle } from 'react-icons/io';
+import Navbar from "../Components/Navbar";
+import UserTable from '../Components/UserTable';
 import { API_URL } from '../helper';
 
 
@@ -48,7 +20,7 @@ function Accounts() {
   const toast = useToast();
   const [dataAllUser, setDataAllUser] = useState([]);
 
-  console.log("data all user",dataAllUser)
+  console.log("data all user", dataAllUser)
 
 
   const getDataUser = async () => {
@@ -60,14 +32,14 @@ function Accounts() {
   const printUserData = () => {
     return dataAllUser.map((val, idx) => {
       return (
-        <UserTable idx={idx + 1} username={val.username} email={val.email} roleId={val.roleId} getDataUser={getDataUser}/>
+        <UserTable idx={idx + 1} username={val.username} email={val.email} roleId={val.roleId} getDataUser={getDataUser} />
       )
     })
   }
 
   const onBtnAdd = async () => {
     try {
-      let add = await axios.post(`${API_URL}/user/addnewuser`, {
+      await axios.post(`${API_URL}/user/addnewuser`, {
         username: username,
         email: email,
         password: password,

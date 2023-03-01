@@ -1,37 +1,14 @@
+import {
+    Box, Button, Container, Flex, FormControl, FormLabel, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Table, TableContainer, Text, Th, Thead,
+    Tr, useDisclosure, useToast
+} from "@chakra-ui/react";
+import axios from "axios";
 import React, { useRef, useState } from "react";
-import Navbar from "../Components/Navbar";
-import TabOption from "../Components/TabOption";
 import { HiDocumentAdd, HiViewGridAdd } from "react-icons/hi";
 import { IoMdAddCircle } from "react-icons/io";
-import {
-    Flex,
-    Box,
-    Container,
-    Input,
-    FormControl,
-    Modal,
-    ModalOverlay,
-    FormLabel,
-    ModalFooter,
-    ModalCloseButton,
-    ModalHeader,
-    ModalContent,
-    ModalBody,
-    Button,
-    useDisclosure,
-    Text,
-    TableContainer,
-    Table,
-    Thead,
-    Tr,
-    Th,
-    Select,
-    useToast,
-    Image
-} from "@chakra-ui/react";
-import { API_URL } from "../helper";
+import Navbar from "../Components/Navbar";
 import ProductTable from "../Components/ProductTable";
-import axios from "axios";
+import { API_URL } from "../helper";
 
 
 
@@ -50,11 +27,6 @@ function ManageProducts(props) {
     const [price, setPrice] = useState('')
     const [categoryNew, setCategoryNew] = useState('')
     const toast = useToast();
-    // const onChangeFile = (event) => {
-    //     console.log(event.target.files);
-    //     modalProductImage.onOpen();
-    //     setFileProductImage(event.target.files[0]);
-    // };
 
     const getDataProduct = async () => {
         let get = await axios.get(`${API_URL}/product/getallproduct`);
@@ -79,7 +51,7 @@ function ManageProducts(props) {
     }
 
     const btnAddCategory = async () => {
-        let tambah = await axios.post(`${API_URL}/category/addcategory`, {
+        await axios.post(`${API_URL}/category/addcategory`, {
             category: category
         });
         modalCategory.onClose();

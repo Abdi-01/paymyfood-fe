@@ -1,33 +1,11 @@
-import React, { useState, useRef } from 'react';
 import {
-    Tbody,
-    Tr,
-    Td,
-    Button,
     AlertDialog,
-    AlertDialogBody,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogContent,
-    AlertDialogOverlay,
-    useDisclosure,
-    Modal,
-    ModalOverlay,
-    FormLabel,
-    ModalFooter,
-    ModalCloseButton,
-    ModalHeader,
-    ModalContent,
-    ModalBody,
-    Text,
-    FormControl,
-    Input,
-    Select,
-    useToast,
-    Image
-} from '@chakra-ui/react'
-import { HiDocumentAdd } from 'react-icons/hi';
+    AlertDialogBody, AlertDialogContent, AlertDialogFooter,
+    AlertDialogHeader, AlertDialogOverlay, Button, FormControl, FormLabel, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Tbody, Td, Text, Tr, useDisclosure, useToast
+} from '@chakra-ui/react';
 import axios from 'axios';
+import React, { useRef, useState } from 'react';
+import { HiDocumentAdd } from 'react-icons/hi';
 import { API_URL } from '../helper';
 
 function ProductTable(props) {
@@ -87,9 +65,9 @@ function ProductTable(props) {
                     status: 'success',
                     duration: 2000,
                     isClosable: true,
-                  });
-                  props.getDataProduct();
-                  modalEdit.onClose();
+                });
+                props.getDataProduct();
+                modalEdit.onClose();
             }
         } catch (error) {
             console.log(error);
@@ -97,7 +75,7 @@ function ProductTable(props) {
     }
 
     const btnDelete = async () => {
-        let hapus = await axios.patch(`${API_URL}/product/deleteproduct`, {
+        await axios.patch(`${API_URL}/product/deleteproduct`, {
             uuid: props.uuid
         });
         props.getDataProduct();

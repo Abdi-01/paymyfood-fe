@@ -1,22 +1,12 @@
-import React from "react";
 import {
-    Flex,
-    Text,
-    Card,
-    CardHeader,
-    Heading,
-    CardBody,
-    CardFooter,
-    Button,
-    InputGroup,
-    Input,
-    InputRightElement,
+    Button, Card, CardBody,
+    CardFooter, CardHeader, Flex, Heading, Input, InputGroup, InputRightElement, Text
 } from "@chakra-ui/react";
-import { HiEye, HiEyeOff } from "react-icons/hi";
 import axios from "axios";
-import { API_URL } from "../helper";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { loginAction } from "../reducers/auth";
 
 function Login(props) {

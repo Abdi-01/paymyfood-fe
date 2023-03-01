@@ -7,54 +7,55 @@ import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { API_URL } from '../helper';
 
-
-
-
-function UserTable(props) {
-    const modalDelete = useDisclosure()
-    const modalEdit = useDisclosure()
-    const cancelRef = React.useRef()
+function CategoryTable(props) {
+    const modalDelete = useDisclosure();
+    const modalEdit = useDisclosure();
+    const cancelRef = React.useRef();
     const initialRef = useRef(null);
     const finalRef = useRef(null);
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [role, setRole] = useState('');
+    const [category, setCategory] = useState('');
     const toast = useToast();
 
 
-
-    const btnDelete = async () => {
-        await axios.post(`${API_URL}/user/deleteuser`, {
-            email: props.email
-        });
-        props.getDataUser();
-        modalDelete.onClose();
+    const btnEdit = async () => {
+        try {
+            let edit = await axios.patch(`${API_URL}/category/editcategory`, {
+                category: !category ? props.category : category,
+                id: props.categoryId
+            });
+            if (edit.data.success) {
+                toast({
+                    position: 'top',
+                    title: `Edit Success`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                });
+                props.getDataCategory();
+                modalEdit.onClose();
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const btnEdit = async () => {
-        await axios.patch(`${API_URL}/user/edituser`, {
-            username: !username ? props.username : username,
-            email: !email ? props.email : email,
-            roleId: !role ? parseInt(props.roleId) : parseInt(role)
-        });
-        props.getDataUser();
-        modalEdit.onClose();
-        toast({
-            position: 'top',
-            title: `Edit Success`,
-            status: 'success',
-            duration: 2000,
-            isClosable: true,
-        });
+    const btnDelete = async () => {
+        try {
+            await axios.patch(`${API_URL}/category/deletecategory`, {
+                id: props.categoryId
+            });
+            props.getDataCategory();
+            modalDelete.onClose();
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
         <Tbody>
             <Tr>
                 <Td>{props.idx}</Td>
-                <Td>{props.username}</Td>
-                <Td>{props.email}</Td>
-                <Td>{props.roleId == 1 ? 'Admin' : 'Cashier'}</Td>
+                <Td>{props.category}</Td>
                 <Td>
                     {/* BUTTON EDIT */}
                     <Button
@@ -74,51 +75,24 @@ function UserTable(props) {
                         <ModalOverlay />
                         <ModalContent bgColor="#393E46" color={"#EEEEEE"}>
                             <ModalHeader color="#00adb5">
-                                Edit Existing User
+                                Edit Existing Category
                             </ModalHeader>
                             <ModalCloseButton />
                             <ModalBody pb={6}>
-                                <FormControl>
-                                    <FormLabel color={"#EEEEEE"}>
-                                        Username
-                                    </FormLabel>
-                                    <Input
-                                        ref={initialRef}
-                                        placeholder="Enter username"
-                                        _hover={""}
-                                        bgColor="#222831"
-                                        variant={"link"}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        defaultValue={props.username}
-                                    />
-                                </FormControl>
 
                                 <FormControl mt={4}>
                                     <FormLabel color={"#EEEEEE"}>
-                                        Email
+                                        Category
                                     </FormLabel>
                                     <Input
-                                        ref={initialRef}
-                                        placeholder="Enter email"
-                                        _hover={""}
-                                        bgColor="#222831"
-                                        variant={"link"}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        value={props.email}
-                                        disabled='true'
-                                    />
-                                </FormControl>
-
-                                <FormControl mt={4}>
-                                    <FormLabel color={"#EEEEEE"}>
-                                        Role
-                                    </FormLabel>
-                                    <Select placeholder='Select option'
-                                        onChange={(e) => setRole(e.target.value)}
-                                        defaultValue={props.roleId}>
-                                        <option value='1'>Admin</option>
-                                        <option value='2' >Cashier</option>
-                                    </Select>
+                                            ref={initialRef}
+                                            placeholder="Enter new category name"
+                                            _hover={""}
+                                            bgColor="#222831"
+                                            variant={"link"}
+                                            onChange={(e) => setCategory(e.target.value)}
+                                            defaultValue={props.category}
+                                        />
                                 </FormControl>
                             </ModalBody>
 
@@ -183,4 +157,4 @@ function UserTable(props) {
     );
 }
 
-export default UserTable;
+export default CategoryTable;
