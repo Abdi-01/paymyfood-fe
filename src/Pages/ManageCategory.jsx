@@ -129,8 +129,8 @@ function ManageCategory() {
                         <Table variant='simple' color={'#EEEEEE'}>
                             <Thead>
                                 <Tr>
-                                    <Th>No</Th>
-                                    <Th>Category</Th>
+                                    <Th w='10%'>No</Th>
+                                    <Th w='60%'>Category</Th>
                                     <Th></Th>
                                 </Tr>
                             </Thead>
