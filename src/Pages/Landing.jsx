@@ -1,10 +1,11 @@
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import CheckoutCard from "../Components/CheckoutCard";
+import CheckoutTotal from "../Components/CheckoutTotal";
 import Navbar from "../Components/Navbar";
 import TabOption from "../Components/TabOption";
 
 function Landing(props) {
-    
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
             <Box flex={"3"}>
@@ -17,23 +18,29 @@ function Landing(props) {
                 </Box>
             </Box>
             <Box
-                flex="1"
-                justifyItems={"center"}
-                alignItems={"center"}
+                display={"flex"}
                 bgColor={"#EEEEEE"}
+                flexDir={"column"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                
             >
-                <Text
-                    p={"4"}
-                    mx={"auto"}
-                    color="#222831"
-                    fontWeight={"bold"}
-                    fontSize={"2xl"}
-                    textAlign={"center"}
-                    textDecorationLine={"underline"}
-                    textUnderlineOffset={"5px"}
-                >
-                    Order Details
-                </Text>
+                <Box>
+                    <Text
+                        p={"4"}
+                        mx={"auto"}
+                        color="#222831"
+                        fontWeight={"bold"}
+                        fontSize={"2xl"}
+                        textAlign={"center"}
+                        textDecorationLine={"underline"}
+                        textUnderlineOffset={"5px"}
+                    >
+                        Order Details
+                    </Text>
+                    <CheckoutCard />
+                </Box>
+                <CheckoutTotal />
             </Box>
         </Flex>
     );

@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Accounts from "./Pages/Accounts";
-import AddProduct from "./Pages/ManageProducts";
+import ManageProducts from "./Pages/ManageProducts";
 import Landing from "./Pages/Landing";
 import Login from "./Pages/Login";
 import { useDispatch } from "react-redux";
@@ -20,7 +20,7 @@ function App(props) {
             if (token) {
                 let response = await axios.get(`${API_URL}/user/keeplogin`, {
                     headers: {
-                        "Authorization": `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
                 console.log("Response data keeplogin:", response.data);
@@ -39,7 +39,10 @@ function App(props) {
             <Routes>
                 <Route path="/" element={<Login />}></Route>
                 <Route path="/landing" element={<Landing />}></Route>
-                <Route path="/products" element={<AddProduct keepLogin={keepLogin} />}></Route>
+                <Route
+                    path="/products"
+                    element={<ManageProducts keepLogin={keepLogin} />}
+                ></Route>
                 <Route path="/accounts" element={<Accounts />}></Route>
                 <Route path="/category" element={<ManageCategory />}></Route>
             </Routes>
