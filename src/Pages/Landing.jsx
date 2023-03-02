@@ -23,6 +23,9 @@ function Landing(props) {
     const [order, setOrder] = useState("ASC");
     const [category, setCategory] = useState("");
 
+    // USESTATE TRANSACTION
+    const [dataCart, setDataCart] = useState([]);
+
     const getAllProducts = async () => {
         try {
             let token = localStorage.getItem("pmf_login");
@@ -54,7 +57,27 @@ function Landing(props) {
                 <ProductCard
                     product={val.product}
                     price={val.price}
+                    uuid={val.uuid}
                     image={val.image}
+                    dataCart={dataCart}
+                    setDataCart={setDataCart}
+                    productId={val.id}
+                />
+            );
+        });
+    };
+
+    const printAllOrder = () => {
+        return dataCart.map((val, idx) => {
+            return (
+                <CheckoutCard
+                    product={val.product}
+                    image={val.image}
+                    qty={val.qty}
+                    price={val.price}
+                    dataCart={dataCart}
+                    setDataCart={setDataCart}
+                    productId={val.id}
                 />
             );
         });
@@ -96,8 +119,11 @@ function Landing(props) {
         });
     };
 
+    console.log("data carttttt : ", dataCart);
+
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
+            {/* BOX 1 */}
             <Box
                 flex={"3"}
                 display="flex"
@@ -105,6 +131,7 @@ function Landing(props) {
                 justifyContent="space-between"
             >
                 <Box>
+                    {/* NAVBAR */}
                     <Box>
                         <Navbar
                             setProductName={setProductName}
@@ -114,7 +141,7 @@ function Landing(props) {
                             setOrder={setOrder}
                         />
                     </Box>
-                    {/* Tab Options */}
+                    {/* BUTTON GROUP */}
                     <Box mt={"4"} ml={"4"}>
                         <Flex>
                             <Button
@@ -137,6 +164,7 @@ function Landing(props) {
                         {printAllProduct()}
                     </Flex>
                 </Box>
+                {/* PAGINATION */}
                 <Box>
                     <Flex my="10" w="full" justify={"center"}>
                         <Pagination
@@ -148,15 +176,18 @@ function Landing(props) {
                     </Flex>
                 </Box>
             </Box>
+            {/* END BOX 1 */}
+
+            {/* BOX 2 */}
             <Box
+                flex='1'
                 display={"flex"}
                 bgColor={"#EEEEEE"}
                 flexDir={"column"}
                 justifyContent={"space-between"}
-                flex={"1"}
                 h="100vh"
             >
-                <Box>
+                <Box overflow={"auto"}>
                     <Text
                         p={"4"}
                         mx={"auto"}
@@ -169,31 +200,17 @@ function Landing(props) {
                     >
                         Order Details
                     </Text>
-                    <Box
-                        overflowY={"auto"}
-                        h="60vh"
-                        __css={{
-                            "&::-webkit-scrollbar": {
-                                w: "2",
-                            },
-                            "&::-webkit-scrollbar-track": {
-                                w: "6",
-                            },
-                            "&::-webkit-scrollbar-thumb": {
-                                borderRadius: "10",
-                                bg: `gray.100`,
-                            },
-                        }}
-                    >
-                        <CheckoutCard />
-                        <CheckoutCard />
-                        <CheckoutCard />
-                        <CheckoutCard />
-                        <CheckoutCard />
-                    </Box>
+
+                    {/* CHECKOUT CARD */}
+                    {printAllOrder()}
+                    {/* END CHECKOUT CARD */}
                 </Box>
-                <CheckoutTotal />
+
+                {/* CHECKOUT TEXT */}
+                <CheckoutTotal dataCart={dataCart} />
+                {/* END CHECKOUT TEXT */}
             </Box>
+            {/* END BOX 2 */}
         </Flex>
     );
 }
