@@ -187,7 +187,7 @@ function Landing(props) {
                 justifyContent={"space-between"}
                 h="100vh"
             >
-                <Box overflow={"auto"}>
+                <Box>
                     <Text
                         p={"4"}
                         mx={"auto"}
@@ -202,12 +202,31 @@ function Landing(props) {
                     </Text>
 
                     {/* CHECKOUT CARD */}
-                    {printAllOrder()}
+                    <Box
+                        overflowY={"auto"}
+                        h="60vh"
+                        __css={{
+                            "&::-webkit-scrollbar": {
+                                w: "0",
+                            },
+                            "&::-webkit-scrollbar-track": {
+                                w: "6",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                borderRadius: "10",
+                                bg: `gray.100`,
+                            },
+                        }}
+                    >
+                        {printAllOrder()}
+                    </Box>
                     {/* END CHECKOUT CARD */}
                 </Box>
 
                 {/* CHECKOUT TEXT */}
-                <CheckoutTotal dataCart={dataCart} />
+                <Box>
+                    <CheckoutTotal dataCart={dataCart} />
+                </Box>
                 {/* END CHECKOUT TEXT */}
             </Box>
             {/* END BOX 2 */}

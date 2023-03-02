@@ -21,7 +21,6 @@ function CheckoutCard(props) {
             mx={"4"}
             bgColor="#393E46"
             color={"#EEEEEE"}
-            width="full"
         >
             <Image
                 objectFit="cover"
@@ -29,7 +28,7 @@ function CheckoutCard(props) {
                 src={`${API_URL}${props.image}`}
             />
 
-            <Stack>
+            <Stack width={"full"}>
                 <CardBody>
                     <Box mt={"-2"}>
                         <Text size="2xs" fontWeight={"thin"}>
