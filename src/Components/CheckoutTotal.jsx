@@ -1,5 +1,6 @@
 import React from "react";
-import { Table, Tbody, Tr, Td, Divider, Tfoot } from "@chakra-ui/react";
+import { Table, Tbody, Tr, Td, Tfoot, Button } from "@chakra-ui/react";
+import {FaCashRegister} from "react-icons/fa" 
 
 function CheckoutTotal(props) {
     let subTotal = props.dataCart.reduce((a, b) => a + b.price * b.qty, 0);
@@ -40,6 +41,10 @@ function CheckoutTotal(props) {
                 <Tr fontWeight={"bold"} letterSpacing="wide">
                     <Td>TOTAL</Td>
                     <Td isNumeric>{total}</Td>
+                    <Td><Button bgColor="#00ADB5"
+                    color="#EEEEEE"
+                    _hover=""
+                    rounded="md"><FaCashRegister /></Button></Td>
                 </Tr>
             </Tfoot>
         </Table>

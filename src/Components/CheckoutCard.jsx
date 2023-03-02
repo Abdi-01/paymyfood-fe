@@ -21,8 +21,7 @@ function CheckoutCard(props) {
             mx={"4"}
             bgColor="#393E46"
             color={"#EEEEEE"}
-            w='full'
-            justify={'space-between'}
+            width="full"
         >
             <Image
                 objectFit="cover"
@@ -33,7 +32,7 @@ function CheckoutCard(props) {
             <Stack>
                 <CardBody>
                     <Box mt={"-2"}>
-                        <Text size="xs" fontWeight={"semibold"}>
+                        <Text size="2xs" fontWeight={"thin"}>
                             {props.product}
                         </Text>
                         {/* Isi props harga kedalam amount: {} */}
@@ -60,9 +59,11 @@ function CheckoutCard(props) {
                             variant={"solid"}
                             fontWeight={"bold"}
                             onClick={() => {
-                                let found = props.dataCart.findIndex((data) => data.productId == props.productId);
-                                let temp = [...props.dataCart]
-                                temp.splice(found, 1)
+                                let found = props.dataCart.findIndex(
+                                    (data) => data.productId == props.productId
+                                );
+                                let temp = [...props.dataCart];
+                                temp.splice(found, 1);
                                 props.setDataCart(temp);
                             }}
                         >

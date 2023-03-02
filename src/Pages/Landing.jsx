@@ -180,7 +180,7 @@ function Landing(props) {
 
             {/* BOX 2 */}
             <Box
-                flex='1'
+                flex="1"
                 display={"flex"}
                 bgColor={"#EEEEEE"}
                 flexDir={"column"}
