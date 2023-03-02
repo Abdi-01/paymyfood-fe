@@ -24,6 +24,9 @@ function Landing(props) {
     const [order, setOrder] = useState('ASC');
     const [category, setCategory] = useState('');
 
+    // USESTATE TRANSACTION
+    const [dataCart, setDataCart] = useState([])
+
 
     const getAllProducts = async () => {
         try {
@@ -48,7 +51,15 @@ function Landing(props) {
 
     const printAllProduct = () => {
         return showProducts.map((val, idx) => {
-            return <ProductCard product={val.product} price={val.price} image={val.image} />
+            return <ProductCard product={val.product} price={val.price} uuid={val.uuid} image={val.image}
+                dataCart={dataCart} setDataCart={setDataCart} productId={val.id} />
+        })
+    }
+
+    const printAllOrder = () => {
+        return dataCart.map((val, idx) => {
+            return <CheckoutCard  product={val.product} image={val.image} qty={val.qty} price={val.price}
+                dataCart={dataCart} setDataCart={setDataCart} productId={val.id} />
         })
     }
 
@@ -87,21 +98,22 @@ function Landing(props) {
         })
     }
 
-
-
-
+    console.log("data carttttt : ", dataCart);
 
 
 
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
+
+            {/* BOX 1 */}
             <Box flex={"3"} display='flex' flexDir={'column'} justifyContent='space-between'>
                 <Box>
+                    {/* NAVBAR */}
                     <Box>
                         <Navbar setProductName={setProductName} getAllProducts={getAllProducts} setPage={setPage}
-                        setSortBy={setSortBy} setOrder={setOrder} />
+                            setSortBy={setSortBy} setOrder={setOrder} />
                     </Box>
-                    {/* Tab Options */}
+                    {/* BUTTON GROUP */}
                     <Box mt={"4"} ml={"4"}>
                         <Flex>
                             <Button
@@ -124,13 +136,18 @@ function Landing(props) {
                         {printAllProduct()}
                     </Flex>
                 </Box>
+                {/* PAGINATION */}
                 <Box>
                     <Flex my='10' w='full' justify={'center'}>
                         <Pagination size={size} page={page} totalData={totalData} paginate={paginate} />
                     </Flex>
                 </Box>
             </Box>
+            {/* END BOX 1 */}
+
+            {/* BOX 2 */}
             <Box
+                flex='1'
                 display={"flex"}
                 bgColor={"#EEEEEE"}
                 flexDir={"column"}
@@ -139,7 +156,7 @@ function Landing(props) {
                 h='100vh'
 
             >
-                <Box>
+                <Box overflow={'auto'}>
                     <Text
                         p={"4"}
                         mx={"auto"}
@@ -152,10 +169,19 @@ function Landing(props) {
                     >
                         Order Details
                     </Text>
-                    <CheckoutCard />
+
+                    {/* CHECKOUT CARD */}
+                    {printAllOrder()}
+                    {/* END CHECKOUT CARD */}
+
                 </Box>
-                <CheckoutTotal />
+
+                {/* CHECKOUT TEXT */}
+                <CheckoutTotal dataCart={dataCart}/>
+                {/* END CHECKOUT TEXT */}
+
             </Box>
+            {/* END BOX 2 */}
         </Flex>
     );
 }
