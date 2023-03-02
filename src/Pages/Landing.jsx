@@ -9,39 +9,41 @@ import ProductCard from "../Components/ProductCard";
 import TabOption from "../Components/TabOption";
 import { API_URL } from "../helper";
 
-
 function Landing(props) {
     const [dataAllProducts, setDataAllProducts] = useState([]);
     const [dataAllCategory, setDataAllCategory] = useState([]);
 
     const [showProducts, setShowProducts] = useState([]);
     const [page, setPage] = useState(0);
-    const [size, setSize] = useState(6);
-    const [productName, setProductName] = useState('');
+    const [size, setSize] = useState(8);
+    const [productName, setProductName] = useState("");
     const [totalData, setTotalData] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [sortBy, setSortBy] = useState('product');
-    const [order, setOrder] = useState('ASC');
-    const [category, setCategory] = useState('');
+    const [sortBy, setSortBy] = useState("product");
+    const [order, setOrder] = useState("ASC");
+    const [category, setCategory] = useState("");
 
     // USESTATE TRANSACTION
-    const [dataCart, setDataCart] = useState([])
-
+    const [dataCart, setDataCart] = useState([]);
 
     const getAllProducts = async () => {
         try {
-            let token = localStorage.getItem('pmf_login');
-            let res = await axios.post(`${API_URL}/product/list?page=${page}&size=${size}&name=${productName}&sortby=${sortBy}&order=${order}&category=${category}`, {}, {
-                headers: {
-                    'Authorization': `Bearer  ${token}`
+            let token = localStorage.getItem("pmf_login");
+            let res = await axios.post(
+                `${API_URL}/product/list?page=${page}&size=${size}&name=${productName}&sortby=${sortBy}&order=${order}&category=${category}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer  ${token}`,
+                    },
                 }
-            });
+            );
             setTotalData(res.data.datanum);
             setShowProducts(res.data.data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     React.useEffect(() => {
         getDataProduct();
@@ -51,22 +53,39 @@ function Landing(props) {
 
     const printAllProduct = () => {
         return showProducts.map((val, idx) => {
-            return <ProductCard product={val.product} price={val.price} uuid={val.uuid} image={val.image}
-                dataCart={dataCart} setDataCart={setDataCart} productId={val.id} />
-        })
-    }
+            return (
+                <ProductCard
+                    product={val.product}
+                    price={val.price}
+                    uuid={val.uuid}
+                    image={val.image}
+                    dataCart={dataCart}
+                    setDataCart={setDataCart}
+                    productId={val.id}
+                />
+            );
+        });
+    };
 
     const printAllOrder = () => {
         return dataCart.map((val, idx) => {
-            return <CheckoutCard  product={val.product} image={val.image} qty={val.qty} price={val.price}
-                dataCart={dataCart} setDataCart={setDataCart} productId={val.id} />
-        })
-    }
+            return (
+                <CheckoutCard
+                    product={val.product}
+                    image={val.image}
+                    qty={val.qty}
+                    price={val.price}
+                    dataCart={dataCart}
+                    setDataCart={setDataCart}
+                    productId={val.id}
+                />
+            );
+        });
+    };
 
-    const paginate = pageNumber => {
+    const paginate = (pageNumber) => {
         setPage(pageNumber);
-    }
-
+    };
 
     const getDataProduct = async () => {
         let get = await axios.get(`${API_URL}/product/getallproduct`);
@@ -77,41 +96,50 @@ function Landing(props) {
     const getDataCategory = async () => {
         let get = await axios.get(`${API_URL}/category/getallcategory`);
         // console.log("get all category", getDataCategory)
-        setDataAllCategory(get.data)
-    }
+        setDataAllCategory(get.data);
+    };
 
     const printBtnGroup = () => {
         return dataAllCategory.map((val, idx) => {
-            return <Button
-                bgColor="#00ADB5"
-                color="#EEEEEE"
-                _hover=""
-                mr={3}
-                rounded='full'
-                onClick={() => {
-                    setCategory(`${val.category}`)
-                    setPage(0)
-                }}
-            >
-                {val.category}
-            </Button>
-        })
-    }
+            return (
+                <Button
+                    bgColor="#00ADB5"
+                    color="#EEEEEE"
+                    _hover=""
+                    mr={3}
+                    rounded="full"
+                    onClick={() => {
+                        setCategory(`${val.category}`);
+                        setPage(0);
+                    }}
+                >
+                    {val.category}
+                </Button>
+            );
+        });
+    };
 
     console.log("data carttttt : ", dataCart);
 
-
-
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
-
             {/* BOX 1 */}
-            <Box flex={"3"} display='flex' flexDir={'column'} justifyContent='space-between'>
+            <Box
+                flex={"3"}
+                display="flex"
+                flexDir={"column"}
+                justifyContent="space-between"
+            >
                 <Box>
                     {/* NAVBAR */}
                     <Box>
-                        <Navbar setProductName={setProductName} getAllProducts={getAllProducts} setPage={setPage}
-                            setSortBy={setSortBy} setOrder={setOrder} />
+                        <Navbar
+                            setProductName={setProductName}
+                            getAllProducts={getAllProducts}
+                            setPage={setPage}
+                            setSortBy={setSortBy}
+                            setOrder={setOrder}
+                        />
                     </Box>
                     {/* BUTTON GROUP */}
                     <Box mt={"4"} ml={"4"}>
@@ -121,10 +149,10 @@ function Landing(props) {
                                 color="#EEEEEE"
                                 _hover=""
                                 mr={3}
-                                rounded='full'
+                                rounded="full"
                                 onClick={() => {
-                                    setCategory('');
-                                    setPage(0)
+                                    setCategory("");
+                                    setPage(0);
                                 }}
                             >
                                 All Products
@@ -132,14 +160,19 @@ function Landing(props) {
                             {printBtnGroup()}
                         </Flex>
                     </Box>
-                    <Flex w='full' flexWrap={'wrap'} gap='6' mt='4'>
+                    <Flex w="full" flexWrap={"wrap"} gap="8" ml="4" mt="4">
                         {printAllProduct()}
                     </Flex>
                 </Box>
                 {/* PAGINATION */}
                 <Box>
-                    <Flex my='10' w='full' justify={'center'}>
-                        <Pagination size={size} page={page} totalData={totalData} paginate={paginate} />
+                    <Flex my="10" w="full" justify={"center"}>
+                        <Pagination
+                            size={size}
+                            page={page}
+                            totalData={totalData}
+                            paginate={paginate}
+                        />
                     </Flex>
                 </Box>
             </Box>
@@ -147,16 +180,14 @@ function Landing(props) {
 
             {/* BOX 2 */}
             <Box
-                flex='1'
+                flex="1"
                 display={"flex"}
                 bgColor={"#EEEEEE"}
                 flexDir={"column"}
                 justifyContent={"space-between"}
-                alignItems={"center"}
-                h='100vh'
-
+                h="100vh"
             >
-                <Box overflow={'auto'}>
+                <Box>
                     <Text
                         p={"4"}
                         mx={"auto"}
@@ -171,15 +202,32 @@ function Landing(props) {
                     </Text>
 
                     {/* CHECKOUT CARD */}
-                    {printAllOrder()}
+                    <Box
+                        overflowY={"auto"}
+                        h="60vh"
+                        __css={{
+                            "&::-webkit-scrollbar": {
+                                w: "0",
+                            },
+                            "&::-webkit-scrollbar-track": {
+                                w: "6",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                borderRadius: "10",
+                                bg: `gray.100`,
+                            },
+                        }}
+                    >
+                        {printAllOrder()}
+                    </Box>
                     {/* END CHECKOUT CARD */}
-
                 </Box>
 
                 {/* CHECKOUT TEXT */}
-                <CheckoutTotal dataCart={dataCart}/>
+                <Box>
+                    <CheckoutTotal dataCart={dataCart} />
+                </Box>
                 {/* END CHECKOUT TEXT */}
-
             </Box>
             {/* END BOX 2 */}
         </Flex>

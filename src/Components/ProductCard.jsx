@@ -43,7 +43,7 @@ function ProductCard(props) {
 
     return (
         <Card
-            width={"xs"}
+            width={"3xs"}
             bgColor={"#393E46"}
             direction="column"
             overflow={"hidden"}
@@ -54,11 +54,12 @@ function ProductCard(props) {
                 <Image
                     src={`${API_URL}${props.image}`}
                     alt="Product Image"
-                    objectFit={"cover"}
+                    height={"200px"}
+                    objectFit="cover"
                     width="full"
 
                 />
-                <Stack mt="3" spacing="1">
+                <Stack mt="2" spacing="1">
                     <Heading size="md" color={"#EEEEEE"} textAlign={"center"}>
                         {props.product}
                     </Heading>
@@ -69,7 +70,7 @@ function ProductCard(props) {
                         textAlign={"center"}
 
                     >
-                        Rp. {props.price}
+                        Rp. {props.price.toLocaleString()}
                     </Text>
                     <Box
                         display={"flex"}

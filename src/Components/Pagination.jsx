@@ -14,19 +14,17 @@ function Pagination(props) {
                     color="white"
                     size="md"
                     fontSize={"xs"}
-                    bgColor="#00adb5"
+                    colorScheme="pmf"
                     w="4"
-                    variant={props.page + 1 == number ? "solid" : "outline"}
-                    _hover={{
-                        bg: "#00adb5",
-                        color:"#EEEEEE"
-                    }}
-                    type="button"
                     mr="4"
-                    _active={{
-                        bgColor: "#00adb5",
-                        transform: "scale(0.98)",
-                    }}
+                    variant={props.page + 1 == number ? "solid" : "outline"}
+
+                    type="button"
+                    // _active={{
+                    //     colorScheme: "pmf",
+
+                    //     transform: "scale(0.98)",
+                    // }}
                 >
                     {number}
                 </Button>

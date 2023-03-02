@@ -21,8 +21,6 @@ function CheckoutCard(props) {
             mx={"4"}
             bgColor="#393E46"
             color={"#EEEEEE"}
-            w='full'
-            justify={'space-between'}
         >
             <Image
                 objectFit="cover"
@@ -30,15 +28,15 @@ function CheckoutCard(props) {
                 src={`${API_URL}${props.image}`}
             />
 
-            <Stack>
+            <Stack width={"full"}>
                 <CardBody>
                     <Box mt={"-2"}>
-                        <Text size="xs" fontWeight={"semibold"}>
+                        <Text size="2xs" fontWeight={"thin"}>
                             {props.product}
                         </Text>
                         {/* Isi props harga kedalam amount: {} */}
                         <Text
-                            fontSize={"xs"}
+                            fontSize={"2xs"}
                             textAlign="left"
                             letterSpacing={"wide"}
                         >
@@ -52,21 +50,25 @@ function CheckoutCard(props) {
                         alignItems="center"
                     >
                         <Button
-                            bgColor={"#00adb5"}
-                            color="#EEEEEE"
-                            _hover={""}
-                            p="5px"
+                            color="white"
+                            size="md"
+                            colorScheme="pmf"
+                            w="4"
                             ml="2"
-                            fontSize="lg"
+                            variant={"solid"}
                             fontWeight={"bold"}
                             onClick={() => {
-                                let found = props.dataCart.findIndex((data) => data.productId == props.productId);
-                                let temp = [...props.dataCart]
-                                temp.splice(found, 1)
+                                let found = props.dataCart.findIndex(
+                                    (data) => data.productId == props.productId
+                                );
+                                let temp = [...props.dataCart];
+                                temp.splice(found, 1);
                                 props.setDataCart(temp);
                             }}
                         >
-                            <HiTrash />
+                            <Text>
+                                <HiTrash style={{ fontSize: "20px" }} />
+                            </Text>
                         </Button>
                     </Box>
                 </CardBody>
