@@ -185,6 +185,7 @@ function ProductTable(props) {
                                         <Select
                                             bgColor={"#222831"}
                                             variant={"link"}
+                                            placeholder="Select Option"
                                             onChange={(e) =>
                                                 setCategory(e.target.value)
                                             }

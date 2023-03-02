@@ -30,17 +30,20 @@ function ProductCard(props) {
     };
     return (
         <Card
-            maxW="sm"
+            width={"xs"}
             bgColor={"#393E46"}
             direction="column"
             overflow={"hidden"}
+            rounded={"3xl"}
+            shadow="2xl"
         >
             <CardBody p={"0"}>
                 <Image
                     src={`${API_URL}${props.image}`}
-                    alt="Spaghetti Carbonara"
+                    alt="Product Image"
                     objectFit={"cover"}
-                    maxH={"32"}
+                    width="full"
+                    
                 />
                 <Stack mt="3" spacing="1">
                     <Heading size="md" color={"#EEEEEE"} textAlign={"center"}>
@@ -51,14 +54,16 @@ function ProductCard(props) {
                         fontSize="2xl"
                         fontWeight="bold"
                         textAlign={"center"}
+                        
                     >
-                        {props.price}
+                        Rp. {props.price}
                     </Text>
                     <Box
                         display={"flex"}
                         justifyContent={"center"}
                         alignItems="center"
                         pb={"6"}
+                        mt="3"
                     >
                         <Button
                             bgColor={"#00adb5"}
