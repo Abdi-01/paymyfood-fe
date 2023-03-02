@@ -57,7 +57,7 @@ function ProductTable(props) {
     const printSelectOption = () => {
         console.log(props.dataAllCategory);
         return props.dataAllCategory.map((val, idx) => {
-            return <option value={val.id}>{val.category}</option>;
+            return <option style={{backgroundColor:"#222831"}} value={val.id}>{val.category}</option>;
         });
     };
 
@@ -125,7 +125,7 @@ function ProductTable(props) {
                 <Td>{props.category}</Td>
                 <Td>
                     {/* BUTTON EDIT */}
-                    <Button bgColor="#00ADB5" onClick={modalEdit.onOpen} mr="4">
+                    <Button bgColor="#00ADB5" onClick={modalEdit.onOpen} _hover="" mr="4">
                         <Text>Edit</Text>
                     </Button>
 
@@ -183,7 +183,8 @@ function ProductTable(props) {
                                             Category
                                         </FormLabel>
                                         <Select
-                                            placeholder="Select option"
+                                            bgColor={"#222831"}
+                                            variant={"link"}
                                             onChange={(e) =>
                                                 setCategory(e.target.value)
                                             }

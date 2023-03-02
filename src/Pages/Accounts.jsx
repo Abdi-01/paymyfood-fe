@@ -148,9 +148,9 @@ function Accounts() {
                   <FormLabel color={"#EEEEEE"}>
                     Role
                   </FormLabel>
-                  <Select placeholder='Select option' onChange={(e) => setRole(e.target.value)}>
-                    <option value='1'>Admin</option>
-                    <option value='2' >Cashier</option>
+                  <Select variant={"link"} bgColor={"#222831"} onChange={(e) => setRole(e.target.value)}>
+                    <option style={{backgroundColor:"#222831", color:"#EEEEEE"}} value='1'>Admin</option>
+                    <option style={{backgroundColor:"#222831", color:"#EEEEEE"}} value='2' >Cashier</option>
                   </Select>
                 </FormControl>
               </ModalBody>

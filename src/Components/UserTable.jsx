@@ -61,6 +61,7 @@ function UserTable(props) {
                         bgColor="#00ADB5"
                         onClick={modalEdit.onOpen}
                         mr='4'
+                        _hover={""}
                     >
                         <Text  >Edit</Text>
                     </Button>

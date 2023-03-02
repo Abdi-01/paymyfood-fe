@@ -233,7 +233,6 @@ function ManageProducts(props) {
                                                 Category
                                             </FormLabel>
                                             <Select
-                                                placeholder="Select option"
                                                 variant={"link"}
                                                 bgColor="#222831"
                                                 _hover={""}
