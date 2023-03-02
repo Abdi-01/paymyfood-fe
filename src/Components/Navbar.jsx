@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Flex,
@@ -30,6 +30,7 @@ function Navbar(props) {
     const dataUsername = useSelector(
         (state) => state.authReducer.data.username
     );
+    const [searchInput, setSearchInput] = useState('')
 
     const dataRoleId = useSelector((state) => state.authReducer.data.roleId);
     console.log("role id reducer : ", dataRoleId);
@@ -68,6 +69,7 @@ function Navbar(props) {
                         justifyItems={"self-end"}
                         h={"10"}
                         w={"lg"}
+                        onChange={(e) => props.setProductName(e.target.value)}
                     />
                     <InputRightElement>
                         <Button
@@ -77,6 +79,10 @@ function Navbar(props) {
                             bgColor={"transparent"}
                             variant={"link"}
                             py={"2.5"}
+                            onClick={() => {
+                                props.setPage(0);
+                                props.getAllProducts();
+                            }}
                         >
                             <HiSearch color="#00ADB5" />
                         </Button>
@@ -120,11 +126,29 @@ function Navbar(props) {
                         title="Order"
                         type="radio"
                     >
-                        <MenuItemOption value="asc">
+                        <MenuItemOption onClick={() => {
+                            props.setSortBy('product');
+                            props.setOrder('ASC')
+                        }}>
                             Ascending (A - Z)
                         </MenuItemOption>
-                        <MenuItemOption value="desc">
+                        <MenuItemOption onClick={() => {
+                            props.setSortBy('product');
+                            props.setOrder('DESC')
+                        }}>
                             Descending (Z - A)
+                        </MenuItemOption>
+                        <MenuItemOption onClick={() => {
+                            props.setSortBy('price');
+                            props.setOrder('ASC')
+                        }}>
+                            Price Low - High
+                        </MenuItemOption>
+                        <MenuItemOption onClick={() => {
+                            props.setSortBy('price');
+                            props.setOrder('DESC')
+                        }}>
+                            Price High - Low
                         </MenuItemOption>
                     </MenuOptionGroup>
                 </MenuList>
