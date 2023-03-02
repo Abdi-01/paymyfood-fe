@@ -1,52 +1,68 @@
 import {
     AlertDialog,
-    AlertDialogBody, AlertDialogContent, AlertDialogFooter,
-    AlertDialogHeader, AlertDialogOverlay, Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Tbody, Td, Text, Tr, useDisclosure, useToast
-} from '@chakra-ui/react';
-import axios from 'axios';
-import React, { useRef, useState } from 'react';
-import { API_URL } from '../helper';
-
-
-
+    AlertDialogBody,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogOverlay,
+    Button,
+    FormControl,
+    FormLabel,
+    Input,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Select,
+    Tbody,
+    Td,
+    Text,
+    Tr,
+    useDisclosure,
+    useToast,
+} from "@chakra-ui/react";
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import { API_URL } from "../helper";
 
 function UserTable(props) {
-    const modalDelete = useDisclosure()
-    const modalEdit = useDisclosure()
-    const cancelRef = React.useRef()
+    const modalDelete = useDisclosure();
+    const modalEdit = useDisclosure();
+    const cancelRef = React.useRef();
     const initialRef = useRef(null);
     const finalRef = useRef(null);
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [role, setRole] = useState('');
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("");
     const toast = useToast();
-
-
 
     const btnDelete = async () => {
         await axios.post(`${API_URL}/user/deleteuser`, {
-            email: props.email
+            email: props.email,
         });
         props.getDataUser();
         modalDelete.onClose();
-    }
+    };
 
     const btnEdit = async () => {
         await axios.patch(`${API_URL}/user/edituser`, {
             username: !username ? props.username : username,
             email: !email ? props.email : email,
-            roleId: !role ? parseInt(props.roleId) : parseInt(role)
+            roleId: !role ? parseInt(props.roleId) : parseInt(role),
         });
         props.getDataUser();
         modalEdit.onClose();
         toast({
-            position: 'top',
+            position: "top",
             title: `Edit Success`,
-            status: 'success',
+            status: "success",
             duration: 2000,
             isClosable: true,
         });
-    }
+    };
 
     return (
         <Tbody>
@@ -54,15 +70,16 @@ function UserTable(props) {
                 <Td>{props.idx}</Td>
                 <Td>{props.username}</Td>
                 <Td>{props.email}</Td>
-                <Td>{props.roleId == 1 ? 'Admin' : 'Cashier'}</Td>
+                <Td>{props.roleId == 1 ? "Admin" : "Cashier"}</Td>
                 <Td>
                     {/* BUTTON EDIT */}
                     <Button
                         bgColor="#00ADB5"
                         onClick={modalEdit.onOpen}
-                        mr='4'
+                        mr="4"
+                        _hover={""}
                     >
-                        <Text  >Edit</Text>
+                        <Text>Edit</Text>
                     </Button>
 
                     <Modal
@@ -88,7 +105,9 @@ function UserTable(props) {
                                         _hover={""}
                                         bgColor="#222831"
                                         variant={"link"}
-                                        onChange={(e) => setUsername(e.target.value)}
+                                        onChange={(e) =>
+                                            setUsername(e.target.value)
+                                        }
                                         defaultValue={props.username}
                                     />
                                 </FormControl>
@@ -103,9 +122,11 @@ function UserTable(props) {
                                         _hover={""}
                                         bgColor="#222831"
                                         variant={"link"}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
                                         value={props.email}
-                                        disabled='true'
+                                        disabled="true"
                                     />
                                 </FormControl>
 
@@ -113,11 +134,36 @@ function UserTable(props) {
                                     <FormLabel color={"#EEEEEE"}>
                                         Role
                                     </FormLabel>
-                                    <Select placeholder='Select option'
-                                        onChange={(e) => setRole(e.target.value)}
-                                        defaultValue={props.roleId}>
-                                        <option value='1'>Admin</option>
-                                        <option value='2' >Cashier</option>
+                                    <Select
+                                        placeholder="Select option"
+                                        onChange={(e) =>
+                                            setRole(e.target.value)
+                                        }
+                                        defaultValue={props.roleId}
+                                        style={{
+                                            backgroundColor: "#222831",
+                                            color: "#EEEEEE",
+                                        }}
+                                        variant="link"
+                                    >
+                                        <option
+                                            style={{
+                                                backgroundColor: "#222831",
+                                                color: "#EEEEEE",
+                                            }}
+                                            value="1"
+                                        >
+                                            Admin
+                                        </option>
+                                        <option
+                                            style={{
+                                                backgroundColor: "#222831",
+                                                color: "#EEEEEE",
+                                            }}
+                                            value="2"
+                                        >
+                                            Cashier
+                                        </option>
                                     </Select>
                                 </FormControl>
                             </ModalBody>
@@ -128,7 +174,7 @@ function UserTable(props) {
                                     color="#EEEEEE"
                                     _hover=""
                                     mr={3}
-                                    type='button'
+                                    type="button"
                                     onClick={btnEdit}
                                 >
                                     Save
@@ -146,7 +192,7 @@ function UserTable(props) {
                     </Modal>
 
                     {/* BUTTON DELETE */}
-                    <Button colorScheme='red' onClick={modalDelete.onOpen}>
+                    <Button colorScheme="red" onClick={modalDelete.onOpen}>
                         Delete User
                     </Button>
 
@@ -157,26 +203,36 @@ function UserTable(props) {
                     >
                         <AlertDialogOverlay>
                             <AlertDialogContent>
-                                <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                                <AlertDialogHeader
+                                    fontSize="lg"
+                                    fontWeight="bold"
+                                >
                                     Delete
                                 </AlertDialogHeader>
 
                                 <AlertDialogBody>
-                                    Are you sure? You can't undo this action afterwards.
+                                    Are you sure? You can't undo this action
+                                    afterwards.
                                 </AlertDialogBody>
 
                                 <AlertDialogFooter>
-                                    <Button ref={cancelRef} onClick={modalDelete.onClose}>
+                                    <Button
+                                        ref={cancelRef}
+                                        onClick={modalDelete.onClose}
+                                    >
                                         Cancel
                                     </Button>
-                                    <Button colorScheme='red' onClick={btnDelete} ml={3}>
+                                    <Button
+                                        colorScheme="red"
+                                        onClick={btnDelete}
+                                        ml={3}
+                                    >
                                         Delete
                                     </Button>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialogOverlay>
                     </AlertDialog>
-
                 </Td>
             </Tr>
         </Tbody>

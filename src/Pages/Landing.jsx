@@ -120,7 +120,7 @@ function Landing(props) {
                             {printBtnGroup()}
                         </Flex>
                     </Box>
-                    <Flex w='full' flexWrap={'wrap'} gap='3' mt='4'>
+                    <Flex w='full' flexWrap={'wrap'} gap='6' mt='4'>
                         {printAllProduct()}
                     </Flex>
                 </Box>

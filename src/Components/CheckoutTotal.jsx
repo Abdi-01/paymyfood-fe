@@ -4,7 +4,7 @@ import { Table, Tbody, Tr, Td, Divider, Tfoot } from "@chakra-ui/react";
 function CheckoutTotal() {
     return (
         <Table variant="simple" width={"full"}>
-            <Tbody>
+            <Tbody fontWeight={"semibold"} letterSpacing="wide">
                 <Tr>
                     <Td>Sub-Total</Td>
                     <Td isNumeric>25.4</Td>
@@ -23,7 +23,7 @@ function CheckoutTotal() {
                 borderTop={"4px solid #222831"}
                 mt="2"
             >
-                <Tr>
+                <Tr fontWeight={"bold"} letterSpacing="wide">
                     <Td>TOTAL</Td>
                     <Td isNumeric>0.91444</Td>
                 </Tr>
