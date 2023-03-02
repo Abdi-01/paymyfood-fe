@@ -9,8 +9,9 @@ import {
     Stack,
 } from "@chakra-ui/react";
 import { HiTrash } from "react-icons/hi";
+import { API_URL } from "../helper";
 
-function CheckoutCard() {
+function CheckoutCard(props) {
     return (
         <Card
             direction={"row"}
@@ -20,19 +21,20 @@ function CheckoutCard() {
             mx={"4"}
             bgColor="#393E46"
             color={"#EEEEEE"}
+            w='full'
+            justify={'space-between'}
         >
             <Image
                 objectFit="cover"
                 maxW={"32"}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
+                src={`${API_URL}${props.image}`}
             />
 
             <Stack>
                 <CardBody>
                     <Box mt={"-2"}>
                         <Text size="xs" fontWeight={"semibold"}>
-                            Spaghetti Carbonara
+                            {props.product}
                         </Text>
                         {/* Isi props harga kedalam amount: {} */}
                         <Text
@@ -40,8 +42,8 @@ function CheckoutCard() {
                             textAlign="left"
                             letterSpacing={"wide"}
                         >
-                            Rp. 15.000,00- <br />
-                            Amount: {}
+                            Rp. {`${props.price * props.qty}`} <br />
+                            Amount: {props.qty}
                         </Text>
                     </Box>
                     <Box
@@ -57,6 +59,12 @@ function CheckoutCard() {
                             ml="2"
                             fontSize="lg"
                             fontWeight={"bold"}
+                            onClick={() => {
+                                let found = props.dataCart.findIndex((data) => data.productId == props.productId);
+                                let temp = [...props.dataCart]
+                                temp.splice(found, 1)
+                                props.setDataCart(temp);
+                            }}
                         >
                             <HiTrash />
                         </Button>

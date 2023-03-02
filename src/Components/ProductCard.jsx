@@ -13,7 +13,7 @@ import {
 import { API_URL } from "../helper";
 
 function ProductCard(props) {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const [disabled, setDisabled] = useState(false);
 
     const btnIncrement = () => {
@@ -28,6 +28,19 @@ function ProductCard(props) {
             setDisabled(true);
         }
     };
+
+
+    let cari = props.dataCart.find((data, idx) => { // untuk mengetahui apakah di dalam cart usestate ada data yg sama dengan card product atau tidak 
+        console.log("dataaaaa", data, props.productId);
+        if (data.productId == props.productId) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+
+
     return (
         <Card
             width={"xs"}
@@ -43,7 +56,7 @@ function ProductCard(props) {
                     alt="Product Image"
                     objectFit={"cover"}
                     width="full"
-                    
+
                 />
                 <Stack mt="3" spacing="1">
                     <Heading size="md" color={"#EEEEEE"} textAlign={"center"}>
@@ -54,7 +67,7 @@ function ProductCard(props) {
                         fontSize="2xl"
                         fontWeight="bold"
                         textAlign={"center"}
-                        
+
                     >
                         Rp. {props.price}
                     </Text>
@@ -65,36 +78,63 @@ function ProductCard(props) {
                         pb={"6"}
                         mt="3"
                     >
-                        <Button
-                            bgColor={"#00adb5"}
-                            color="#EEEEEE"
-                            _hover={""}
-                            p={"5px"}
-                            mr="2"
-                            fontSize="lg"
-                            fontWeight={"bold"}
-                            onClick={btnDecrement}
-                            disabled={disabled}
-                        >
-                            -
-                        </Button>
-                        <Box my={"auto"}>
-                            <Text my={"auto"} color="#EEEEEE">
-                                {count}
-                            </Text>
-                        </Box>
-                        <Button
-                            bgColor={"#00adb5"}
-                            color="#EEEEEE"
-                            _hover={""}
-                            p="5px"
-                            ml="2"
-                            fontSize="lg"
-                            fontWeight={"bold"}
-                            onClick={btnIncrement}
-                        >
-                            +
-                        </Button>
+                        {cari ?
+                            <>
+                                <Button
+                                    bgColor={"#00adb5"}
+                                    color="#EEEEEE"
+                                    _hover={""}
+                                    p={"5px"}
+                                    mr="2"
+                                    fontSize="lg"
+                                    fontWeight={"bold"}
+                                    onClick={() => {
+                                        let found = props.dataCart.findIndex((data) => data.productId == props.productId);
+                                        let temp = [...props.dataCart]
+                                        if(temp[found].qty == 1){
+                                            temp.splice(found, 1)
+                                        } else {
+                                            temp[found].qty -= 1
+                                        }
+                                        props.setDataCart(temp);
+                                    }}
+                                    disabled={disabled}
+                                >
+                                    -
+                                </Button>
+
+                                <Button
+                                    bgColor={"#00adb5"}
+                                    color="#EEEEEE"
+                                    _hover={""}
+                                    p="5px"
+                                    ml="2"
+                                    fontSize="lg"
+                                    fontWeight={"bold"}
+                                    onClick={() => {
+                                        let found = props.dataCart.findIndex((data) => data.productId == props.productId);
+                                        let temp = [...props.dataCart]
+                                        temp[found].qty += 1
+                                        props.setDataCart(temp);
+                                    }}
+                                >
+                                    +
+                                </Button>
+                            </>
+
+                            :
+
+                            <Button onClick={() => {
+                                props.setDataCart([...props.dataCart, {
+                                    productId: props.productId,
+                                    qty: 1, price: props.price, uuid: props.uuid, product: props.product,
+                                    image: props.image
+                                }])
+                            }}>
+                                add to cart
+                            </Button>
+                        }
+
                     </Box>
                 </Stack>
             </CardBody>
