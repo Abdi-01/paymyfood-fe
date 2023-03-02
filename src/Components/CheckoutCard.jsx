@@ -31,12 +31,13 @@ function CheckoutCard() {
             <Stack>
                 <CardBody>
                     <Box mt={"-2"}>
-                        <Text size="xs" fontWeight={"semibold"}>
+                        {/* Isi props nama produk ke dalam {} */}
+                        <Text size="2xs" fontWeight={"thin"}>
                             Spaghetti Carbonara
                         </Text>
                         {/* Isi props harga kedalam amount: {} */}
                         <Text
-                            fontSize={"xs"}
+                            fontSize={"2xs"}
                             textAlign="left"
                             letterSpacing={"wide"}
                         >
@@ -50,15 +51,17 @@ function CheckoutCard() {
                         alignItems="center"
                     >
                         <Button
-                            bgColor={"#00adb5"}
-                            color="#EEEEEE"
-                            _hover={""}
-                            p="5px"
+                            color="white"
+                            size="md"
+                            colorScheme="pmf"
+                            w="4"
                             ml="2"
-                            fontSize="lg"
+                            variant={"solid"}
                             fontWeight={"bold"}
                         >
-                            <HiTrash />
+                            <Text>
+                                <HiTrash style={{ fontSize: "20px" }} />
+                            </Text>
                         </Button>
                     </Box>
                 </CardBody>

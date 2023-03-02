@@ -1,5 +1,6 @@
 import React from "react";
-import { Table, Tbody, Tr, Td, Divider, Tfoot } from "@chakra-ui/react";
+import { Table, Tbody, Tr, Td, Tfoot, Button } from "@chakra-ui/react";
+import { FaCashRegister } from "react-icons/fa"
 
 function CheckoutTotal() {
     return (
@@ -24,8 +25,12 @@ function CheckoutTotal() {
                 mt="2"
             >
                 <Tr fontWeight={"bold"} letterSpacing="wide">
-                    <Td>TOTAL</Td>
-                    <Td isNumeric>0.91444</Td>
+                    <Td>TOTAL(Rp.)</Td>
+                    <Td isNumeric>150000</Td>
+                    <Td><Button bgColor="#00ADB5"
+                    color="#EEEEEE"
+                    _hover=""
+                    rounded="md"><FaCashRegister /></Button></Td>
                 </Tr>
             </Tfoot>
         </Table>

@@ -30,7 +30,7 @@ function ProductCard(props) {
     };
     return (
         <Card
-            width={"xs"}
+            width={"3xs"}
             bgColor={"#393E46"}
             direction="column"
             overflow={"hidden"}
@@ -41,11 +41,12 @@ function ProductCard(props) {
                 <Image
                     src={`${API_URL}${props.image}`}
                     alt="Product Image"
-                    objectFit={"cover"}
+                    height={"200px"}
+                    objectFit="cover"
                     width="full"
                     
                 />
-                <Stack mt="3" spacing="1">
+                <Stack mt="2" spacing="1">
                     <Heading size="md" color={"#EEEEEE"} textAlign={"center"}>
                         {props.product}
                     </Heading>
@@ -56,7 +57,7 @@ function ProductCard(props) {
                         textAlign={"center"}
                         
                     >
-                        Rp. {props.price}
+                        Rp. {props.price.toLocaleString()}
                     </Text>
                     <Box
                         display={"flex"}
@@ -66,31 +67,31 @@ function ProductCard(props) {
                         mt="3"
                     >
                         <Button
-                            bgColor={"#00adb5"}
-                            color="#EEEEEE"
-                            _hover={""}
-                            p={"5px"}
+                            color="white"
+                            size="md"
+                            fontSize={"lg"}
+                            colorScheme="pmf"
+                            w="4"
                             mr="2"
-                            fontSize="lg"
-                            fontWeight={"bold"}
+                            variant={"solid"}
                             onClick={btnDecrement}
                             disabled={disabled}
                         >
                             -
                         </Button>
                         <Box my={"auto"}>
-                            <Text my={"auto"} color="#EEEEEE">
+                            <Text my={"auto"} color="#EEEEEE" fontSize={"24"}>
                                 {count}
                             </Text>
                         </Box>
                         <Button
-                            bgColor={"#00adb5"}
-                            color="#EEEEEE"
-                            _hover={""}
-                            p="5px"
+                            color="white"
+                            size="md"
+                            fontSize={"lg"}
+                            colorScheme="pmf"
+                            w="4"
                             ml="2"
-                            fontSize="lg"
-                            fontWeight={"bold"}
+                            variant={"solid"}
                             onClick={btnIncrement}
                         >
                             +
