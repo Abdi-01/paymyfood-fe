@@ -8,14 +8,17 @@ function CheckoutTotal() {
             <Tbody fontWeight={"semibold"} letterSpacing="wide">
                 <Tr>
                     <Td>Sub-Total</Td>
+                    <Td></Td>
                     <Td isNumeric>25.4</Td>
                 </Tr>
                 <Tr>
                     <Td>Discount</Td>
+                    <Td></Td>
                     <Td isNumeric>25.4</Td>
                 </Tr>
                 <Tr>
                     <Td>Tax (11%)</Td>
+                    <Td></Td>
                     <Td isNumeric>30.48</Td>
                 </Tr>
             </Tbody>

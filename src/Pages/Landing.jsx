@@ -190,10 +190,6 @@ function Landing(props) {
                         <CheckoutCard />
                         <CheckoutCard />
                         <CheckoutCard />
-                        <CheckoutCard />
-                        <CheckoutCard />
-                        <CheckoutCard />
-                        <CheckoutCard />
                     </Box>
                 </Box>
                 <CheckoutTotal />
