@@ -92,10 +92,10 @@ function ProductCard(props) {
                                                 props.productId
                                         );
                                         let temp = [...props.dataCart];
-                                        if (temp[found].qty == 1) {
+                                        if (temp[found].quantity == 1) {
                                             temp.splice(found, 1);
                                         } else {
-                                            temp[found].qty -= 1;
+                                            temp[found].quantity -= 1;
                                         }
                                         props.setDataCart(temp);
                                     }}
@@ -119,7 +119,7 @@ function ProductCard(props) {
                                                 props.productId
                                         );
                                         let temp = [...props.dataCart];
-                                        temp[found].qty += 1;
+                                        temp[found].quantity += 1;
                                         props.setDataCart(temp);
                                     }}
                                 >
@@ -134,7 +134,7 @@ function ProductCard(props) {
                                         ...props.dataCart,
                                         {
                                             productId: props.productId,
-                                            qty: 1,
+                                            quantity: 1,
                                             price: props.price,
                                             uuid: props.uuid,
                                             product: props.product,

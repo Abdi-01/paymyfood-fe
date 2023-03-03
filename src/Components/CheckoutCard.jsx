@@ -40,8 +40,8 @@ function CheckoutCard(props) {
                             textAlign="left"
                             letterSpacing={"wide"}
                         >
-                            Rp. {`${props.price * props.qty}`} <br />
-                            Amount: {props.qty}
+                            Rp. {`${props.price * props.quantity}`} <br />
+                            Amount: {props.quantity}
                         </Text>
                     </Box>
                     <Box

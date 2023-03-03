@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Text, Button } from "@chakra-ui/react";
+import { Box, Container, Flex, Text, Button, Select } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
 import CheckoutCard from "../Components/CheckoutCard";
@@ -12,6 +12,7 @@ import { API_URL } from "../helper";
 function Landing(props) {
     const [dataAllProducts, setDataAllProducts] = useState([]);
     const [dataAllCategory, setDataAllCategory] = useState([]);
+    const [dataAllTable, setDataAllTable] = useState([]);
 
     const [showProducts, setShowProducts] = useState([]);
     const [page, setPage] = useState(0);
@@ -22,6 +23,9 @@ function Landing(props) {
     const [sortBy, setSortBy] = useState("product");
     const [order, setOrder] = useState("ASC");
     const [category, setCategory] = useState("");
+    const [table, setTable] = useState("");
+
+    console.log("tableeee",table)
 
     // USESTATE TRANSACTION
     const [dataCart, setDataCart] = useState([]);
@@ -73,7 +77,7 @@ function Landing(props) {
                 <CheckoutCard
                     product={val.product}
                     image={val.image}
-                    qty={val.qty}
+                    quantity={val.quantity}
                     price={val.price}
                     dataCart={dataCart}
                     setDataCart={setDataCart}
@@ -119,7 +123,25 @@ function Landing(props) {
         });
     };
 
-    console.log("data carttttt : ", dataCart);
+    const getAllTable = async () => {
+        try {
+            let get = await axios.get(`${API_URL}/table/getalltable`)
+            // console.log(get)
+            setDataAllTable(get.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const printSelectOptionTable = () => {
+        return dataAllTable.map((val,idx) => {
+            return <option style={{backgroundColor:"#222831"}} value={val.id}>{val.table}</option>
+        })
+    }
+
+    React.useEffect(() => {
+        getAllTable();
+    }, []);
 
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
@@ -200,6 +222,24 @@ function Landing(props) {
                     >
                         Order Details
                     </Text>
+                    {!table ? 
+                    <Text color="red.500" ml="4" fontWeight={"bold"}>Choose Table*</Text>
+                    :
+                    <Text color="#222831" ml="4" fontWeight={"bold"}>Table</Text>
+                    
+                }
+                    <Select
+                        bgColor={"#EEEEEE"}
+                        color="#222831"
+                        variant={"link"}
+                        placeholder="Select Table"
+                        onChange={(e) =>
+                            setTable(e.target.value)
+                        }
+                    >
+                        {printSelectOptionTable()}
+                    </Select>
+
 
                     {/* CHECKOUT CARD */}
                     <Box
@@ -225,7 +265,7 @@ function Landing(props) {
 
                 {/* CHECKOUT TEXT */}
                 <Box>
-                    <CheckoutTotal dataCart={dataCart} />
+                    <CheckoutTotal dataCart={dataCart} setDataCart={setDataCart} table={table} />
                 </Box>
                 {/* END CHECKOUT TEXT */}
             </Box>

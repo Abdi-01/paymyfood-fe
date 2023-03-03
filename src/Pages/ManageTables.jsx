@@ -26,6 +26,7 @@ import {
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
+import MejaTable from "../Components/MejaTable";
 import Navbar from "../Components/Navbar";
 import UserTable from "../Components/UserTable";
 import { API_URL } from "../helper";
@@ -35,48 +36,50 @@ function ManageTables(props) {
     const initialRef = useRef(null);
     const finalRef = useRef(null);
     const [table, setTable] = useState("");
-    // const toast = useToast();
-    // const [dataTable, setDataTable] = useState([]);
+    const [dataAllTable, setDataAllTable] = useState([]);
+    const toast = useToast();
 
-    // console.log("data all user", dataAllUser);
 
-    // const getTable = async () => {
-    //     let get = await axios.get(`${API_URL}/table/getalltable`);
-    //     console.log("get data table ", get);
-    //     setDataTable(get.data);
-    // };
 
-    // const printUserData = () => {
-    //     return dataAllUser.map((val, idx) => {
-    //         return <UserTable idx={idx + 1} table={val.table} />;
-    //     });
-    // };
+    const printAllTable = () => {
+        return dataAllTable.map((val, idx) => {
+            return <MejaTable idx={idx + 1} table={val.table} id={val.id} getAllTable={getAllTable}/>;
+        });
+    };
 
-    // const onBtnAdd = async () => {
-    //     try {
-    //         await axios.post(`${API_URL}/user/addnewuser`, {
-    //             username: username,
-    //             email: email,
-    //             password: password,
-    //             roleId: parseInt(role),
-    //         });
-    //         toast({
-    //             position: "top",
-    //             title: `New Table added`,
-    //             status: "success",
-    //             duration: 2000,
-    //             isClosable: true,
-    //         });
-    //         onClose();
-    //         getDataUser();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+    const onBtnAdd = async () => {
+        try {
+            await axios.post(`${API_URL}/table/addtable`, {
+                table: table
+            });
+            toast({
+                position: "top",
+                title: `New Table added`,
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+            });
+            onClose();
+            getAllTable();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    // React.useEffect(() => {
-    //     getDataUser();
-    // }, []);
+    const getAllTable = async () => {
+        try {
+            let get = await axios.get(`${API_URL}/table/getalltable`)
+            // console.log(get)
+            setDataAllTable(get.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        // getDataUser();
+        getAllTable()
+    }, []);
 
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
@@ -126,10 +129,9 @@ function ManageTables(props) {
                                         _hover={""}
                                         bgColor="#222831"
                                         variant={"link"}
-                                        // GANTI ONCHANGE
-                                        // onChange={(e) =>
-                                        //     setTable(e.target.value)
-                                        // }
+                                        onChange={(e) =>
+                                            setTable(e.target.value)
+                                        }
                                     />
                                 </FormControl>
                             </ModalBody>
@@ -141,7 +143,7 @@ function ManageTables(props) {
                                     _hover=""
                                     mr={3}
                                     type="button"
-                                    // onClick={onBtnAdd}
+                                    onClick={onBtnAdd}
                                 >
                                     Add
                                 </Button>
@@ -163,19 +165,16 @@ function ManageTables(props) {
                             <Thead>
                                 <Tr>
                                     <Th>No</Th>
-                                    <Th>Username</Th>
-                                    <Th>Email</Th>
-                                    <Th>Role</Th>
+                                    <Th>Table</Th>
                                     <Th></Th>
                                 </Tr>
                             </Thead>
-                            {/* {printUserData()} */}
+                            {printAllTable()}
                         </Table>
                     </TableContainer>
                 </Box>
             </Box>
         </Flex>
-        // <AccountCard/>
     );
 }
 

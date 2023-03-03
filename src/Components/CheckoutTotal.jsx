@@ -1,9 +1,13 @@
 import React from "react";
 import { Table, Tbody, Tr, Td, Tfoot, Button } from "@chakra-ui/react";
 import { FaCashRegister } from "react-icons/fa";
+import { API_URL } from "../helper";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 function CheckoutTotal(props) {
-    let subTotal = props.dataCart.reduce((a, b) => a + b.price * b.qty, 0);
+    let subTotal = props.dataCart.reduce((a, b) => a + b.price * b.quantity, 0);
+    const dataEmail = useSelector((state) => state.authReducer.data.email)
 
     console.log(typeof subTotal);
     console.log(parseInt(subTotal.toLocaleString()));
@@ -13,6 +17,26 @@ function CheckoutTotal(props) {
         style: "currency",
         currency: "IDR",
     }).format(subTotal + tax);
+
+    const btnCheckout = async () => {
+        if(window.confirm('Confirm Checkout ?')){
+            let token = localStorage.getItem('pmf_login')
+            if (props.dataCart.length == 0) {
+                alert('Cart empty !')
+            } else {
+                let checkout = await axios.post(`${API_URL}/transaction/`, {
+                    tableId: parseInt(props.table),
+                    order: props.dataCart
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                
+            }
+        }
+
+    }
 
     return (
         <>
@@ -51,6 +75,10 @@ function CheckoutTotal(props) {
                 width={"full"}
                 _hover=""
                 rounded={"none"}
+                onClick={() => {
+                    btnCheckout();
+                    props.setDataCart([])
+                }}
             >
                 <FaCashRegister />
             </Button>
