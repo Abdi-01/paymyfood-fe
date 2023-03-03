@@ -125,7 +125,9 @@ function ProductCard(props) {
 
                             :
 
-                            <Button onClick={() => {
+                            <Button 
+                            _hover={""}
+                            onClick={() => {
                                 props.setDataCart([...props.dataCart, {
                                     productId: props.productId,
                                     qty: 1, price: props.price, uuid: props.uuid, product: props.product,
