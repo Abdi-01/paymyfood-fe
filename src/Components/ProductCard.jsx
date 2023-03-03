@@ -29,8 +29,8 @@ function ProductCard(props) {
         }
     };
 
-
-    let cari = props.dataCart.find((data, idx) => { // untuk mengetahui apakah di dalam cart usestate ada data yg sama dengan card product atau tidak 
+    let cari = props.dataCart.find((data, idx) => {
+        // untuk mengetahui apakah di dalam cart usestate ada data yg sama dengan card product atau tidak
         console.log("dataaaaa", data, props.productId);
         if (data.productId == props.productId) {
             return true;
@@ -38,8 +38,6 @@ function ProductCard(props) {
             return false;
         }
     });
-
-
 
     return (
         <Card
@@ -57,7 +55,6 @@ function ProductCard(props) {
                     height={"200px"}
                     objectFit="cover"
                     width="full"
-
                 />
                 <Stack mt="2" spacing="1">
                     <Heading size="md" color={"#EEEEEE"} textAlign={"center"}>
@@ -68,7 +65,6 @@ function ProductCard(props) {
                         fontSize="2xl"
                         fontWeight="bold"
                         textAlign={"center"}
-
                     >
                         Rp. {props.price.toLocaleString()}
                     </Text>
@@ -79,7 +75,7 @@ function ProductCard(props) {
                         pb={"6"}
                         mt="3"
                     >
-                        {cari ?
+                        {cari ? (
                             <>
                                 <Button
                                     bgColor={"#00adb5"}
@@ -90,12 +86,16 @@ function ProductCard(props) {
                                     fontSize="lg"
                                     fontWeight={"bold"}
                                     onClick={() => {
-                                        let found = props.dataCart.findIndex((data) => data.productId == props.productId);
-                                        let temp = [...props.dataCart]
-                                        if(temp[found].qty == 1){
-                                            temp.splice(found, 1)
+                                        let found = props.dataCart.findIndex(
+                                            (data) =>
+                                                data.productId ==
+                                                props.productId
+                                        );
+                                        let temp = [...props.dataCart];
+                                        if (temp[found].qty == 1) {
+                                            temp.splice(found, 1);
                                         } else {
-                                            temp[found].qty -= 1
+                                            temp[found].qty -= 1;
                                         }
                                         props.setDataCart(temp);
                                     }}
@@ -113,31 +113,39 @@ function ProductCard(props) {
                                     fontSize="lg"
                                     fontWeight={"bold"}
                                     onClick={() => {
-                                        let found = props.dataCart.findIndex((data) => data.productId == props.productId);
-                                        let temp = [...props.dataCart]
-                                        temp[found].qty += 1
+                                        let found = props.dataCart.findIndex(
+                                            (data) =>
+                                                data.productId ==
+                                                props.productId
+                                        );
+                                        let temp = [...props.dataCart];
+                                        temp[found].qty += 1;
                                         props.setDataCart(temp);
                                     }}
                                 >
                                     +
                                 </Button>
                             </>
-
-                            :
-
-                            <Button 
-                            _hover={""}
-                            onClick={() => {
-                                props.setDataCart([...props.dataCart, {
-                                    productId: props.productId,
-                                    qty: 1, price: props.price, uuid: props.uuid, product: props.product,
-                                    image: props.image
-                                }])
-                            }}>
+                        ) : (
+                            <Button
+                                _hover={""}
+                                onClick={() => {
+                                    props.setDataCart([
+                                        ...props.dataCart,
+                                        {
+                                            productId: props.productId,
+                                            qty: 1,
+                                            price: props.price,
+                                            uuid: props.uuid,
+                                            product: props.product,
+                                            image: props.image,
+                                        },
+                                    ]);
+                                }}
+                            >
                                 add to cart
                             </Button>
-                        }
-
+                        )}
                     </Box>
                 </Stack>
             </CardBody>
