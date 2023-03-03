@@ -11,6 +11,7 @@ import { loginAction } from "./reducers/auth";
 import axios from "axios";
 import ManageCategory from "./Pages/ManageCategory";
 import ManageTables from "./Pages/ManageTables";
+import Statistics from "./Pages/Statistics";
 
 function App(props) {
     const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App(props) {
                 <Route path="/category" element={<ManageCategory />}></Route>
                 <Route path="/accounts" element={<Accounts />}></Route>
                 <Route path="/tables" element={<ManageTables />}></Route>
+                <Route path="/statistics" element={<Statistics />}></Route>
             </Routes>
         </Box>
     );
