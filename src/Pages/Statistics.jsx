@@ -1,166 +1,166 @@
-import React, { useState } from "react";
 import {
     Box,
+    Container,
     Flex,
     Text,
+    Button,
     useDisclosure,
     Drawer,
-    DrawerHeader,
     DrawerBody,
-    DrawerContent,
+    DrawerHeader,
     DrawerOverlay,
-    Button,
+    DrawerContent,
+    Stat,
+    StatLabel,
+    StatNumber,
+    StatHelpText,
+    CardBody,
+    Card,
     Input,
-    InputGroup,
-    InputRightElement,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuOptionGroup,
-    MenuItemOption,
 } from "@chakra-ui/react";
-
-import { HiMenu, HiSearch, HiFilter } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { HiMenu } from "react-icons/hi";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-function Navbar(props) {
+function Statistics(props) {
+    const [placement] = useState("left");
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [placement] = React.useState("left");
     const dataUsername = useSelector(
         (state) => state.authReducer.data.username
     );
-    const [searchInput, setSearchInput] = useState("");
-
     const dataRoleId = useSelector((state) => state.authReducer.data.roleId);
-    console.log("role id reducer : ", dataRoleId);
 
     return (
-        <Flex bgColor={"#222831"} mt={"4"} ml={"4"}>
-            {/* BUTTON DRAWER */}
-            <Box>
-                <Button
-                    rounded={"md"}
-                    h={"10"}
-                    bgColor="#00ADB5"
-                    color="#EEEEEE"
-                    _hover={""}
-                    p={"2.5"}
-                    variant={"link"}
-                    justifyItems={"self-start"}
-                    onClick={onOpen}
-                    mr={"16"}
-                >
-                    <HiMenu color="#EEEEEE" />
-                </Button>
-            </Box>
-
-            {/* SEARCH BAR */}
-            <Box>
-                <InputGroup>
-                    <Input
-                        type="text"
-                        placeholder={"Search for a product..."}
-                        color={"#EEEEEE"}
-                        bgColor={"#393E46"}
-                        variant={"link"}
-                        justifyItems={"self-end"}
-                        h={"10"}
-                        w={"lg"}
-                        onChange={(e) => props.setProductName(e.target.value)}
-                    />
-                    <InputRightElement>
-                        <Button
-                            display={"flex"}
-                            alignSelf={"center"}
-                            size={"md"}
-                            bgColor={"transparent"}
-                            variant={"link"}
-                            py={"2.5"}
-                            onClick={() => {
-                                props.setPage(0);
-                                props.getAllProducts();
-                            }}
-                        >
-                            <HiSearch color="#00ADB5" />
-                        </Button>
-                    </InputRightElement>
-                </InputGroup>
-            </Box>
-
-            {/* BUTTON FILTER */}
-            {/* <Button
-                rounded={"md"}
-                h={"10"}
-                bgColor="#00ADB5"
-                color="#EEEEEE"
-                _hover={""}
-                p={"2.5"}
-                variant={"link"}
-                // onClick={}
-                ml={"4"}
+        <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
+            {/* BOX 1 */}
+            <Box
+                flex={"2"}
+                display="flex"
+                flexDir={"column"}
+                justifyContent="space-between"
             >
-                <HiFilter color="#EEEEEE" />
-            </Button> */}
-
-            {/* SORT BUTTON */}
-            <Menu closeOnSelect={false}>
-                <MenuButton
-                    as={Button}
-                    rounded={"md"}
-                    h={"10"}
-                    bgColor="#00ADB5"
-                    color="#EEEEEE"
-                    _hover={""}
-                    p={"2.5"}
-                    variant={"link"}
-                    ml={"4"}
-                >
-                    <HiFilter color="#EEEEEE" />
-                </MenuButton>
-                <MenuList minWidth="240px">
-                    <MenuOptionGroup
-                        defaultValue="asc"
-                        title="Order"
-                        type="radio"
+                <Box>
+                    <Button
+                        mt={"4"}
+                        rounded={"md"}
+                        h={"10"}
+                        bgColor="#00ADB5"
+                        color="#EEEEEE"
+                        _hover={""}
+                        p={"2.5"}
+                        variant={"link"}
+                        justifyItems={"self-start"}
+                        onClick={onOpen}
+                        mr={"16"}
                     >
-                        <MenuItemOption
-                            onClick={() => {
-                                props.setSortBy("product");
-                                props.setOrder("ASC");
-                            }}
-                        >
-                            Ascending (A - Z)
-                        </MenuItemOption>
-                        <MenuItemOption
-                            onClick={() => {
-                                props.setSortBy("product");
-                                props.setOrder("DESC");
-                            }}
-                        >
-                            Descending (Z - A)
-                        </MenuItemOption>
-                        <MenuItemOption
-                            onClick={() => {
-                                props.setSortBy("price");
-                                props.setOrder("ASC");
-                            }}
-                        >
-                            Price Low - High
-                        </MenuItemOption>
-                        <MenuItemOption
-                            onClick={() => {
-                                props.setSortBy("price");
-                                props.setOrder("DESC");
-                            }}
-                        >
-                            Price High - Low
-                        </MenuItemOption>
-                    </MenuOptionGroup>
-                </MenuList>
-            </Menu>
+                        <HiMenu color="#EEEEEE" />
+                    </Button>
+                    <Box mt="4" color={"#EEEEEE"} w="2xl">
+                        <Text fontSize={"7xl"} fontWeight="bold">
+                            Welcome, {dataUsername}
+                        </Text>
+                    </Box>
+                    <Card mt="4" bgColor={"#393e46"} w={"xl"}>
+                        <CardBody>
+                            <Stat>
+                                <Box
+                                    display={"flex"}
+                                    justifyContent="space-between"
+                                >
+                                    <StatLabel
+                                        color="#00ADB5"
+                                        fontSize={"2xl"}
+                                        fontWeight="bold"
+                                        w={"xl"}
+                                        opacity={"inherit"}
+                                    >
+                                        Gross Income
+                                    </StatLabel>
+                                    <Input
+                                        variant={"link"}
+                                        bgColor="#00ADB5"
+                                        color={"#222831"}
+                                        placeholder="Select Date"
+                                        size="md"
+                                        type="date"
+                                    ></Input>
+                                </Box>
 
-            {/* DRAWER */}
+                                <StatNumber
+                                    color="#EEEEEE"
+                                    fontSize={"6xl"}
+                                    fontWeight="bold"
+                                    letterSpacing={"wider"}
+                                >
+                                    Rp 1.500.000,00-
+                                </StatNumber>
+                                <StatHelpText
+                                    color="#00ADB5"
+                                    fontSize={"2xl"}
+                                    fontWeight="semibold"
+                                    opacity={"inherit"}
+                                >
+                                    Today
+                                </StatHelpText>
+                            </Stat>
+                        </CardBody>
+                    </Card>
+                </Box>
+            </Box>
+            {/* END BOX 1 */}
+
+            {/* BOX 2 */}
+            <Box
+                flex="1"
+                display={"flex"}
+                bgColor={"#EEEEEE"}
+                flexDir={"column"}
+                justifyContent={"space-between"}
+                h="100vh"
+            >
+                <Box>
+                    <Text
+                        p={"4"}
+                        mx={"auto"}
+                        color="#222831"
+                        fontWeight={"bold"}
+                        fontSize={"2xl"}
+                        textAlign={"center"}
+                        textDecorationLine={"underline"}
+                        textUnderlineOffset={"5px"}
+                    >
+                        All-time <br /> Best Sellers
+                    </Text>
+
+                    {/* CHECKOUT CARD */}
+                    <Box
+                        overflowY={"auto"}
+                        h="60vh"
+                        __css={{
+                            "&::-webkit-scrollbar": {
+                                w: "0",
+                            },
+                            "&::-webkit-scrollbar-track": {
+                                w: "6",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                borderRadius: "10",
+                                bg: `gray.100`,
+                            },
+                        }}
+                    >
+                        {/* {printAllOrder()} */}
+                    </Box>
+                    {/* END CHECKOUT CARD */}
+                </Box>
+
+                {/* CHECKOUT TEXT */}
+                <Box>{/* <CheckoutTotal dataCart={dataCart} /> */}</Box>
+                {/* END CHECKOUT TEXT */}
+            </Box>
+            {/* END BOX 2 */}
+            {/* Drawer Content */}
             <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>
@@ -291,4 +291,4 @@ function Navbar(props) {
     );
 }
 
-export default Navbar;
+export default Statistics;
