@@ -219,6 +219,18 @@ function Navbar(props) {
                                                 </Button>
                                             </Text>
                                         </Link>
+                                        <Link to={"/tables"}>
+                                            <Text my={"4"}>
+                                                <Button
+                                                    bgColor={"#00adb5"}
+                                                    _hover="none"
+                                                    w={"full"}
+                                                    color={"#222831"}
+                                                >
+                                                    Manage Tables
+                                                </Button>
+                                            </Text>
+                                        </Link>
                                         <Link to={"/products"}>
                                             <Text my={"4"}>
                                                 <Button
