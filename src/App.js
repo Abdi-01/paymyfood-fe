@@ -10,6 +10,7 @@ import { API_URL } from "./helper";
 import { loginAction } from "./reducers/auth";
 import axios from "axios";
 import ManageCategory from "./Pages/ManageCategory";
+import ManageTables from "./Pages/ManageTables";
 
 function App(props) {
     const dispatch = useDispatch();
@@ -43,8 +44,9 @@ function App(props) {
                     path="/products"
                     element={<ManageProducts keepLogin={keepLogin} />}
                 ></Route>
-                <Route path="/accounts" element={<Accounts />}></Route>
                 <Route path="/category" element={<ManageCategory />}></Route>
+                <Route path="/accounts" element={<Accounts />}></Route>
+                <Route path="/tables" element={<ManageTables />}></Route>
             </Routes>
         </Box>
     );
