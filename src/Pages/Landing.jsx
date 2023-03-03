@@ -23,6 +23,9 @@ function Landing(props) {
     const [sortBy, setSortBy] = useState("product");
     const [order, setOrder] = useState("ASC");
     const [category, setCategory] = useState("");
+    const [table, setTable] = useState("");
+
+    console.log("tableeee",table)
 
     // USESTATE TRANSACTION
     const [dataCart, setDataCart] = useState([]);
@@ -74,7 +77,7 @@ function Landing(props) {
                 <CheckoutCard
                     product={val.product}
                     image={val.image}
-                    qty={val.qty}
+                    quantity={val.quantity}
                     price={val.price}
                     dataCart={dataCart}
                     setDataCart={setDataCart}
@@ -219,15 +222,20 @@ function Landing(props) {
                     >
                         Order Details
                     </Text>
+                    {!table ? 
+                    <Text color="red.500" ml="4" fontWeight={"bold"}>Choose Table*</Text>
+                    :
+                    <Text color="#222831" ml="4" fontWeight={"bold"}>Table</Text>
+                    
+                }
                     <Select
                         bgColor={"#EEEEEE"}
                         color="#222831"
                         variant={"link"}
                         placeholder="Select Table"
                         onChange={(e) =>
-                            setCategory(e.target.value)
+                            setTable(e.target.value)
                         }
-                        defaultValue={props.category}
                     >
                         {printSelectOptionTable()}
                     </Select>
@@ -257,7 +265,7 @@ function Landing(props) {
 
                 {/* CHECKOUT TEXT */}
                 <Box>
-                    <CheckoutTotal dataCart={dataCart} />
+                    <CheckoutTotal dataCart={dataCart} setDataCart={setDataCart} table={table} />
                 </Box>
                 {/* END CHECKOUT TEXT */}
             </Box>
