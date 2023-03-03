@@ -34,43 +34,38 @@ function MejaTable(props) {
     const cancelRef = React.useRef();
     const initialRef = useRef(null);
     const finalRef = useRef(null);
-    // const [username, setUsername] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [role, setRole] = useState("");
-    // const toast = useToast();
+    const [table, setTable] = useState("");
+    const toast = useToast();
 
-    // const btnDelete = async () => {
-    //     await axios.post(`${API_URL}/user/deleteuser`, {
-    //         email: props.email,
-    //     });
-    //     props.getDataUser();
-    //     modalDelete.onClose();
-    // };
+    const btnDelete = async () => {
+        await axios.patch(`${API_URL}/table/deletetable`, {
+            id: props.id,
+        });
+        props.getAllTable();
+        modalDelete.onClose();
+    };
 
-    // const btnEdit = async () => {
-    //     await axios.patch(`${API_URL}/user/edituser`, {
-    //         username: !username ? props.username : username,
-    //         email: !email ? props.email : email,
-    //         roleId: !role ? parseInt(props.roleId) : parseInt(role),
-    //     });
-    //     props.getDataUser();
-    //     modalEdit.onClose();
-    //     toast({
-    //         position: "top",
-    //         title: `Edit Success`,
-    //         status: "success",
-    //         duration: 2000,
-    //         isClosable: true,
-    //     });
-    // };
+    const btnEdit = async () => {
+        await axios.patch(`${API_URL}/table/edittable`, {
+            table: !table ? props.table : table,
+            id: props.id
+        });
+        props.getAllTable();
+        modalEdit.onClose();
+        toast({
+            position: "top",
+            title: `Edit Success`,
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+        });
+    };
 
     return (
         <Tbody>
             <Tr>
-                {/* <Td>{props.idx}</Td>
-                <Td>{props.username}</Td>
-                <Td>{props.email}</Td> */}
-                <Td>{props.roleId == 1 ? "Admin" : "Cashier"}</Td>
+                <Td>{props.idx}</Td>
+                <Td>{props.table}</Td>
                 <Td>
                     {/* BUTTON EDIT */}
                     <Button
@@ -105,10 +100,10 @@ function MejaTable(props) {
                                         _hover={""}
                                         bgColor="#222831"
                                         variant={"link"}
-                                        // onChange={(e) =>
-                                        //     setUsername(e.target.value)
-                                        // }
-                                        // defaultValue={props.username}
+                                        onChange={(e) =>
+                                            setTable(e.target.value)
+                                        }
+                                        defaultValue={props.table}
                                     />
                                 </FormControl>
                             </ModalBody>
