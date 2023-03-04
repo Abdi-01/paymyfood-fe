@@ -18,10 +18,13 @@ import {
     Card,
     Input,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Chart from "../Components/Chart";
+import { API_URL } from "../helper";
 
 function Statistics(props) {
     const [placement] = useState("left");
@@ -30,6 +33,32 @@ function Statistics(props) {
         (state) => state.authReducer.data.username
     );
     const dataRoleId = useSelector((state) => state.authReducer.data.roleId);
+
+    const [income, setIncome] = useState(0)
+    let totalincome = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+    }).format(income);
+    
+    
+    const today = new Date().toLocaleString("sv", {timeZone: 'Asia/Jakarta'}).split(' ')[0];
+    console.log("todayyyyy", today)
+    const [startDate, setStartDate] = useState(today)
+    const [endDate, setEndDate] = useState(today)
+
+    const getIncome = async () => {
+        try {
+            let get = await axios.get(`${API_URL}/order/income?start=${startDate}&end=${endDate}`);
+            console.log("income todayy", get.data);
+            setIncome(get.data.incomeToday)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        getIncome()
+    }, [startDate, endDate])
 
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
@@ -61,7 +90,7 @@ function Statistics(props) {
                             Welcome, {dataUsername}
                         </Text>
                     </Box>
-                    <Card mt="4" bgColor={"#393e46"} w={"xl"}>
+                    <Card mt="4" bgColor={"#393e46"} w={"4xl"}>
                         <CardBody>
                             <Stat>
                                 <Box
@@ -77,13 +106,28 @@ function Statistics(props) {
                                     >
                                         Gross Income
                                     </StatLabel>
+
+                                    {/* INPUT DATE */}
                                     <Input
                                         variant={"link"}
                                         bgColor="#00ADB5"
                                         color={"#222831"}
                                         placeholder="Select Date"
-                                        size="md"
+                                        w={"xs"}
                                         type="date"
+                                        mr='3'
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                        defaultValue={today}
+                                    ></Input>
+                                    <Input
+                                        variant={"link"}
+                                        bgColor="#00ADB5"
+                                        color={"#222831"}
+                                        placeholder="Select Date"
+                                        w={"xs"}
+                                        type="date"
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                        defaultValue={today}
                                     ></Input>
                                 </Box>
 
@@ -93,7 +137,7 @@ function Statistics(props) {
                                     fontWeight="bold"
                                     letterSpacing={"wider"}
                                 >
-                                    Rp 1.500.000,00-
+                                    {totalincome}
                                 </StatNumber>
                                 <StatHelpText
                                     color="#00ADB5"
@@ -106,6 +150,9 @@ function Statistics(props) {
                             </Stat>
                         </CardBody>
                     </Card>
+                    <Box mr='4'>
+                        <Chart />
+                    </Box>
                 </Box>
             </Box>
             {/* END BOX 1 */}
@@ -133,7 +180,7 @@ function Statistics(props) {
                         All-time <br /> Best Sellers
                     </Text>
 
-                    {/* CHECKOUT CARD */}
+
                     <Box
                         overflowY={"auto"}
                         h="60vh"
@@ -152,12 +199,12 @@ function Statistics(props) {
                     >
                         {/* {printAllOrder()} */}
                     </Box>
-                    {/* END CHECKOUT CARD */}
+
                 </Box>
 
-                {/* CHECKOUT TEXT */}
+
                 <Box>{/* <CheckoutTotal dataCart={dataCart} /> */}</Box>
-                {/* END CHECKOUT TEXT */}
+
             </Box>
             {/* END BOX 2 */}
             {/* Drawer Content */}

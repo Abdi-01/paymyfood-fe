@@ -19,21 +19,29 @@ function CheckoutTotal(props) {
     }).format(subTotal + tax);
 
     const btnCheckout = async () => {
-        if(window.confirm('Confirm Checkout ?')){
-            let token = localStorage.getItem('pmf_login')
-            if (props.dataCart.length == 0) {
-                alert('Cart empty !')
+        try {
+            if (!props.table) {
+                alert('Table empty !')
             } else {
-                let checkout = await axios.post(`${API_URL}/transaction/`, {
-                    tableId: parseInt(props.table),
-                    order: props.dataCart
-                }, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
+                if (window.confirm('Confirm Checkout ?')) {
+                    let token = localStorage.getItem('pmf_login')
+                    if (props.dataCart.length == 0) {
+                        alert('Cart empty !')
+                    } else {
+                        let checkout = await axios.post(`${API_URL}/transaction/`, {
+                            tableId: parseInt(props.table),
+                            order: props.dataCart
+                        }, {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
+                        });
+
                     }
-                });
-                
+                }
             }
+        } catch (error) {
+            console.log(error)
         }
 
     }
@@ -78,6 +86,7 @@ function CheckoutTotal(props) {
                 onClick={() => {
                     btnCheckout();
                     props.setDataCart([])
+                    props.setTable('')
                 }}
             >
                 <FaCashRegister />
