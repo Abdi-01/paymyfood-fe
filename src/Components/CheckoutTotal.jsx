@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Tbody, Tr, Td, Tfoot, Button } from "@chakra-ui/react";
+import { Table, Tbody, Tr, Td, Tfoot, Button, Input } from "@chakra-ui/react";
 import { FaCashRegister } from "react-icons/fa";
 import { API_URL } from "../helper";
 import { useSelector } from "react-redux";
@@ -7,7 +7,8 @@ import axios from "axios";
 
 function CheckoutTotal(props) {
     let subTotal = props.dataCart.reduce((a, b) => a + b.price * b.quantity, 0);
-    const dataEmail = useSelector((state) => state.authReducer.data.email)
+    const dataEmail = useSelector((state) => state.authReducer.data.email);
+    const [payment, setPayment] = React.useState(0)
 
     console.log(typeof subTotal);
     console.log(parseInt(subTotal.toLocaleString()));
@@ -19,21 +20,34 @@ function CheckoutTotal(props) {
     }).format(subTotal + tax);
 
     const btnCheckout = async () => {
-        if(window.confirm('Confirm Checkout ?')){
-            let token = localStorage.getItem('pmf_login')
-            if (props.dataCart.length == 0) {
-                alert('Cart empty !')
+        try {
+            if (!props.table) {
+                alert('Table empty !')
             } else {
-                let checkout = await axios.post(`${API_URL}/transaction/`, {
-                    tableId: parseInt(props.table),
-                    order: props.dataCart
-                }, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
+                if (window.confirm('Confirm Checkout ?')) {
+                    let token = localStorage.getItem('pmf_login')
+                    if (props.dataCart.length == 0) {
+                        alert('Cart empty !')
+                    } else {
+                        if(payment >= tax + subTotal){
+                            alert(`Kembalian ${payment - (tax + subTotal)}`)
+                        }else {
+                            alert('Money not enough')
+                        }
+                        let checkout = await axios.post(`${API_URL}/transaction/`, {
+                            tableId: parseInt(props.table),
+                            order: props.dataCart
+                        }, {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
+                        });
+
                     }
-                });
-                
+                }
             }
+        } catch (error) {
+            console.log(error)
         }
 
     }
@@ -69,6 +83,17 @@ function CheckoutTotal(props) {
                     </Tr>
                 </Tfoot>
             </Table>
+            <Input
+                type="number"
+                placeholder={"Enter payment amount"}
+                color={"#EEEEEE"}
+                bgColor={"#393E46"}
+                variant={"link"}
+                justifyItems={"self-end"}
+                h={"10"}
+                rounded='none'
+                onChange={(e) => setPayment(e.target.value)}
+            />
             <Button
                 bgColor="#00ADB5"
                 color="#EEEEEE"
@@ -78,6 +103,7 @@ function CheckoutTotal(props) {
                 onClick={() => {
                     btnCheckout();
                     props.setDataCart([])
+                    props.setTable('')
                 }}
             >
                 <FaCashRegister />

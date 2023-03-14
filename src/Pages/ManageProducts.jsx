@@ -49,15 +49,23 @@ function ManageProducts(props) {
     const toast = useToast();
 
     const getDataProduct = async () => {
-        let get = await axios.get(`${API_URL}/product/getallproduct`);
-        // console.log("get data product",get)
-        setDataAllProducts(get.data);
+        try {
+            let get = await axios.get(`${API_URL}/product/getallproduct`);
+            // console.log("get data product",get)
+            setDataAllProducts(get.data);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const getDataCategory = async () => {
-        let get = await axios.get(`${API_URL}/category/getallcategory`);
-        // console.log("get all category", getDataCategory)
-        setDataAllCategory(get.data);
+        try {
+            let get = await axios.get(`${API_URL}/category/getallcategory`);
+            // console.log("get all category", getDataCategory)
+            setDataAllCategory(get.data);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const printProductData = () => {
@@ -80,11 +88,15 @@ function ManageProducts(props) {
     };
 
     const btnAddCategory = async () => {
-        await axios.post(`${API_URL}/category/addcategory`, {
-            category: category,
-        });
-        modalCategory.onClose();
-        getDataCategory();
+        try {
+            await axios.post(`${API_URL}/category/addcategory`, {
+                category: category,
+            });
+            modalCategory.onClose();
+            getDataCategory();
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const printSelectOption = () => {
@@ -297,8 +309,8 @@ function ManageProducts(props) {
                                                                 src={
                                                                     fileProduct
                                                                         ? URL.createObjectURL(
-                                                                              fileProduct
-                                                                          )
+                                                                            fileProduct
+                                                                        )
                                                                         : ""
                                                                 }
                                                             ></Image>

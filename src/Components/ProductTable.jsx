@@ -107,11 +107,15 @@ function ProductTable(props) {
     };
 
     const btnDelete = async () => {
-        await axios.patch(`${API_URL}/product/deleteproduct`, {
-            uuid: props.uuid,
-        });
-        props.getDataProduct();
-        modalDelete.onClose();
+        try {
+            await axios.patch(`${API_URL}/product/deleteproduct`, {
+                uuid: props.uuid,
+            });
+            props.getDataProduct();
+            modalDelete.onClose();
+        } catch (error) {
+            console.log(error)
+        }
     };
     return (
         <Tbody>

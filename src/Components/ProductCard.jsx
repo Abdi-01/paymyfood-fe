@@ -13,22 +13,6 @@ import {
 import { API_URL } from "../helper";
 
 function ProductCard(props) {
-    const [count, setCount] = useState(1);
-    const [disabled, setDisabled] = useState(false);
-
-    const btnIncrement = () => {
-        setCount(count + 1);
-        setDisabled(false);
-    };
-
-    const btnDecrement = () => {
-        if (count > 0) {
-            setCount(count - 1);
-        } else {
-            setDisabled(true);
-        }
-    };
-
     let cari = props.dataCart.find((data, idx) => {
         // untuk mengetahui apakah di dalam cart usestate ada data yg sama dengan card product atau tidak
         console.log("dataaaaa", data, props.productId);
@@ -99,7 +83,6 @@ function ProductCard(props) {
                                         }
                                         props.setDataCart(temp);
                                     }}
-                                    disabled={disabled}
                                 >
                                     -
                                 </Button>

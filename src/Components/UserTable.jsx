@@ -40,28 +40,36 @@ function UserTable(props) {
     const toast = useToast();
 
     const btnDelete = async () => {
-        await axios.post(`${API_URL}/user/deleteuser`, {
-            email: props.email,
-        });
-        props.getDataUser();
-        modalDelete.onClose();
+        try {
+            await axios.post(`${API_URL}/user/deleteuser`, {
+                email: props.email,
+            });
+            props.getDataUser();
+            modalDelete.onClose();
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const btnEdit = async () => {
-        await axios.patch(`${API_URL}/user/edituser`, {
-            username: !username ? props.username : username,
-            email: !email ? props.email : email,
-            roleId: !role ? parseInt(props.roleId) : parseInt(role),
-        });
-        props.getDataUser();
-        modalEdit.onClose();
-        toast({
-            position: "top",
-            title: `Edit Success`,
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-        });
+        try {
+            await axios.patch(`${API_URL}/user/edituser`, {
+                username: !username ? props.username : username,
+                email: !email ? props.email : email,
+                roleId: !role ? parseInt(props.roleId) : parseInt(role),
+            });
+            props.getDataUser();
+            modalEdit.onClose();
+            toast({
+                position: "top",
+                title: `Edit Success`,
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+            });
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (
