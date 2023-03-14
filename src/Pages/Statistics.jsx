@@ -23,6 +23,7 @@ import React, { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import BestSellerCard from "../Components/BestSellerCard";
 import Chart from "../Components/Chart";
 import { API_URL } from "../helper";
 
@@ -45,6 +46,8 @@ function Statistics(props) {
     console.log("todayyyyy", today)
     const [startDate, setStartDate] = useState(today)
     const [endDate, setEndDate] = useState(today)
+    const [dataChart, setDataChart] = useState([])
+    const [bestSeller, setBestSeller] = useState([])
 
     const getIncome = async () => {
         try {
@@ -56,9 +59,38 @@ function Statistics(props) {
         }
     }
 
+    const getInfo = async () => {
+        try {
+            let get = await axios.get(`${API_URL}/order/chart`)
+            // console.log("gett dataa infoo chart",get)
+            setDataChart(get.data)
+        } catch (error) {
+            
+        }
+    }
+
+    const getBestSeller = async () => {
+        try {
+            let get = await axios.get(`${API_URL}/product/bestseller`)
+            setBestSeller(get.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const printBestSeller =  () => {
+        return bestSeller.map((val, idx) => {
+            return <BestSellerCard product={val.product.product} image={val.product.image} total={val.total}/>
+        })
+    }
+
     React.useEffect(() => {
         getIncome()
     }, [startDate, endDate])
+
+    React.useEffect(() => {
+        getInfo()
+        getBestSeller()
+    }, [])
 
     return (
         <Flex as={Container} maxW={"8xl"} minH={"100vh"} bgColor="#222831">
@@ -151,7 +183,7 @@ function Statistics(props) {
                         </CardBody>
                     </Card>
                     <Box mr='4'>
-                        <Chart />
+                        <Chart dataChart={dataChart}/>
                     </Box>
                 </Box>
             </Box>
@@ -183,7 +215,7 @@ function Statistics(props) {
 
                     <Box
                         overflowY={"auto"}
-                        h="60vh"
+
                         __css={{
                             "&::-webkit-scrollbar": {
                                 w: "0",
@@ -197,7 +229,7 @@ function Statistics(props) {
                             },
                         }}
                     >
-                        {/* {printAllOrder()} */}
+                        {printBestSeller()}
                     </Box>
 
                 </Box>

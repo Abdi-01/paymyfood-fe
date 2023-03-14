@@ -24,9 +24,13 @@ function Accounts() {
 
 
   const getDataUser = async () => {
-    let get = await axios.get(`${API_URL}/user/getalluser`);
-    console.log("get data user ", get)
-    setDataAllUser(get.data)
+    try {
+      let get = await axios.get(`${API_URL}/user/getalluser`);
+      console.log("get data user ", get)
+      setDataAllUser(get.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const printUserData = () => {
@@ -149,8 +153,8 @@ function Accounts() {
                     Role
                   </FormLabel>
                   <Select variant={"link"} bgColor={"#222831"} placeholder="Select Option" onChange={(e) => setRole(e.target.value)}>
-                    <option style={{backgroundColor:"#222831", color:"#EEEEEE"}} value='1'>Admin</option>
-                    <option style={{backgroundColor:"#222831", color:"#EEEEEE"}} value='2' >Cashier</option>
+                    <option style={{ backgroundColor: "#222831", color: "#EEEEEE" }} value='1'>Admin</option>
+                    <option style={{ backgroundColor: "#222831", color: "#EEEEEE" }} value='2' >Cashier</option>
                   </Select>
                 </FormControl>
               </ModalBody>

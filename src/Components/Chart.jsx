@@ -34,21 +34,21 @@ export const options = {
     },
 };
 
-const labels = ["1","2","3","4"];
 
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: "Income",
-            data: [100,200,300,400],
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-        }
-    ],
-};
 
-function Chart() {
+function Chart(props) {
+    const labels = props.dataChart.date; // masukin tanggal 
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: "Income",
+                data: props.dataChart.total, // masukin total income per tanggal
+                borderColor: "rgb(255, 99, 132)",
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
+            }
+        ],
+    };
     return <Line options={options} data={data} />;
 }
 

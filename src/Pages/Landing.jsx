@@ -256,7 +256,7 @@ function Landing(props) {
                     {/* CHECKOUT CARD */}
                     <Box
                         overflowY={"auto"}
-                        h="60vh"
+                        h="58vh"
                         __css={{
                             "&::-webkit-scrollbar": {
                                 w: "0",
