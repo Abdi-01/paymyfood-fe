@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import {
     Box, Button, Container, Flex, FormControl, FormLabel, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Table, TableContainer, Text, Th, Thead,
     Tr, useDisclosure, useToast
@@ -19,17 +19,25 @@ function ManageCategory() {
 
 
     const getDataCategory = async () => {
-        let get = await axios.get(`${API_URL}/category/getallcategory`);
-        // console.log("get all category", getDataCategory)
-        setDataAllCategory(get.data)
+        try {
+            let get = await axios.get(`${API_URL}/category/getallcategory`);
+            // console.log("get all category", getDataCategory)
+            setDataAllCategory(get.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const btnAddCategory = async () => {
-        await axios.post(`${API_URL}/category/addcategory`, {
-            category: category
-        });
-        modalCategory.onClose();
-        getDataCategory();
+        try {
+            await axios.post(`${API_URL}/category/addcategory`, {
+                category: category
+            });
+            modalCategory.onClose();
+            getDataCategory();
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const printCategoryData = () => {

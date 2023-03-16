@@ -38,27 +38,35 @@ function MejaTable(props) {
     const toast = useToast();
 
     const btnDelete = async () => {
-        await axios.patch(`${API_URL}/table/deletetable`, {
-            id: props.id,
-        });
-        props.getAllTable();
-        modalDelete.onClose();
+        try {
+            await axios.patch(`${API_URL}/table/deletetable`, {
+                id: props.id,
+            });
+            props.getAllTable();
+            modalDelete.onClose();
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const btnEdit = async () => {
-        await axios.patch(`${API_URL}/table/edittable`, {
-            table: !table ? props.table : table,
-            id: props.id
-        });
-        props.getAllTable();
-        modalEdit.onClose();
-        toast({
-            position: "top",
-            title: `Edit Success`,
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-        });
+        try {
+            await axios.patch(`${API_URL}/table/edittable`, {
+                table: !table ? props.table : table,
+                id: props.id
+            });
+            props.getAllTable();
+            modalEdit.onClose();
+            toast({
+                position: "top",
+                title: `Edit Success`,
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+            });
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (

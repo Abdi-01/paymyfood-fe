@@ -1,19 +1,19 @@
 import { Box, Container, Flex, Text, Button, Select } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { HiTrash } from "react-icons/hi";
 import CheckoutCard from "../Components/CheckoutCard";
 import CheckoutTotal from "../Components/CheckoutTotal";
 import Navbar from "../Components/Navbar";
 import Pagination from "../Components/Pagination";
 import ProductCard from "../Components/ProductCard";
 import TabOption from "../Components/TabOption";
-import { API_URL } from "../helper";
+import { API_URL } from "../helper"
 
 function Landing(props) {
     const [dataAllProducts, setDataAllProducts] = useState([]);
     const [dataAllCategory, setDataAllCategory] = useState([]);
     const [dataAllTable, setDataAllTable] = useState([]);
-
     const [showProducts, setShowProducts] = useState([]);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(8);
@@ -24,10 +24,6 @@ function Landing(props) {
     const [order, setOrder] = useState("ASC");
     const [category, setCategory] = useState("");
     const [table, setTable] = useState("");
-
-    console.log("tableeee",table)
-
-    // USESTATE TRANSACTION
     const [dataCart, setDataCart] = useState([]);
 
     const getAllProducts = async () => {
@@ -92,15 +88,23 @@ function Landing(props) {
     };
 
     const getDataProduct = async () => {
-        let get = await axios.get(`${API_URL}/product/getallproduct`);
-        // console.log("get data product",get)
-        setDataAllProducts(get.data);
+        try {
+            let get = await axios.get(`${API_URL}/product/getallproduct`);
+            // console.log("get data product",get)
+            setDataAllProducts(get.data);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const getDataCategory = async () => {
-        let get = await axios.get(`${API_URL}/category/getallcategory`);
-        // console.log("get all category", getDataCategory)
-        setDataAllCategory(get.data);
+        try {
+            let get = await axios.get(`${API_URL}/category/getallcategory`);
+            // console.log("get all category", getDataCategory)
+            setDataAllCategory(get.data);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const printBtnGroup = () => {
@@ -134,8 +138,8 @@ function Landing(props) {
     }
 
     const printSelectOptionTable = () => {
-        return dataAllTable.map((val,idx) => {
-            return <option style={{backgroundColor:"#222831"}} value={val.id}>{val.table}</option>
+        return dataAllTable.map((val, idx) => {
+            return <option style={{ backgroundColor: "#222831" }} value={val.id}>{val.table}</option>
         })
     }
 
@@ -222,12 +226,20 @@ function Landing(props) {
                     >
                         Order Details
                     </Text>
-                    {!table ? 
-                    <Text color="red.500" ml="4" fontWeight={"bold"}>Choose Table*</Text>
-                    :
-                    <Text color="#222831" ml="4" fontWeight={"bold"}>Table</Text>
-                    
-                }
+                    <Flex justify={'space-between'} alignItems='center'>
+                        {!table ?
+                            <Text color="red.500" ml="4" fontWeight={"bold"}>Choose Table*</Text>
+                            :
+                            <Text color="#222831" ml="4" fontWeight={"bold"}>Table</Text>
+
+                        }
+
+                        <Button onClick={() => setDataCart([])} size='sm' bgColor="#00ADB5"
+                                color="#EEEEEE" mr='3'>
+                            <HiTrash fontSize={'20px'}/>
+                        </Button>
+
+                    </Flex>
                     <Select
                         bgColor={"#EEEEEE"}
                         color="#222831"
@@ -244,7 +256,7 @@ function Landing(props) {
                     {/* CHECKOUT CARD */}
                     <Box
                         overflowY={"auto"}
-                        h="60vh"
+                        h="58vh"
                         __css={{
                             "&::-webkit-scrollbar": {
                                 w: "0",
@@ -265,7 +277,7 @@ function Landing(props) {
 
                 {/* CHECKOUT TEXT */}
                 <Box>
-                    <CheckoutTotal dataCart={dataCart} setDataCart={setDataCart} table={table} />
+                    <CheckoutTotal dataCart={dataCart} setDataCart={setDataCart} table={table} setTable={setTable} />
                 </Box>
                 {/* END CHECKOUT TEXT */}
             </Box>
